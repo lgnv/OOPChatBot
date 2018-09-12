@@ -1,5 +1,4 @@
 package First;
-import java.util.Scanner;
 
 public class Bot implements MessageListener {
 	private final String help = "я игровой бот. „тобы получить список игр, в которые € умею играть, напиши \"игры\".\n"
