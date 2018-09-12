@@ -23,8 +23,9 @@ public class User {
 	public void sendMessage() {
 		if(scanner.hasNext()) {
 			String message = scanner.next();
-			for (MessageListener listener : listeners) {
-				listener.onMessage(message);
+			int listenersCount = listeners.size();
+			for (int i = 0; i < listenersCount; i++) {
+				listeners.get(i).onMessage(message, this);
 			}
 		}
 	}

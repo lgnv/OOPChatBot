@@ -2,11 +2,12 @@ package First;
 
 import java.util.ArrayList;
 
-public class Hangman {
-	private final String help = "Я загадал для тебя слово. У тебя будет 6 попыток"
+public class Hangman implements MessageListener{
+	private final String rules = "Правила игры \"Виселица\": ..."; // TODO
+	private final String beginning = "Я загадал для тебя слово. У тебя будет 6 попыток "
 			+ "отгадать его. Да прибудет с тобой эрудиция. Игра началась.";
 	
-	private String word = "cлово";
+	private String word = "слово";
 	private ArrayList<Integer> positionsOfGuessed = new ArrayList<Integer>();
 	private ArrayList<Character> usedLetters = new ArrayList<Character>();
 	private int hp = 6;
@@ -14,7 +15,8 @@ public class Hangman {
 	private boolean isLose = false;
 	
 	public Hangman() {
-		System.out.println(help);
+		System.out.println(rules);
+		System.out.println(beginning);
 		printGameStatus();
 	}
 	
@@ -81,5 +83,15 @@ public class Hangman {
 			System.out.println("Слово: " + statusWord + "\nОсталось попыток: " + hp);
 		}
 	}
-	
+
+	@Override
+	public void onMessage(String message, User currentUser) {
+		if (message.length() != 1) {
+			System.out.println("Упс, нужно ввести всего лишь одну букву!");
+		}
+		else {
+			Character letter = message.toLowerCase().charAt(0);
+			acceptTheOption(letter);
+		}
+	}	
 }
