@@ -1,15 +1,15 @@
 package First;
 
 public class Bot implements MessageListener {
-	private final String help = "Я игровой бот. Чтобы получить список игр, в которые я умею играть, напиши \"игры\".\n"
-			+ "Для начала игры напиши её название.";
+	private final String help = "РЇ РёРіСЂРѕРІРѕР№ Р±РѕС‚. Р§С‚РѕР±С‹ РїРѕР»СѓС‡РёС‚СЊ СЃРїРёСЃРѕРє РёРіСЂ, РІ РєРѕС‚РѕСЂС‹Рµ СЏ СѓРјРµСЋ РёРіСЂР°С‚СЊ, РЅР°РїРёС€Рё \"РёРіСЂС‹\".\n"
+			+ "Р”Р»СЏ РЅР°С‡Р°Р»Р° РёРіСЂС‹ РЅР°РїРёС€Рё РµС‘ РЅР°Р·РІР°РЅРёРµ.";
 	
 	public Bot() {
 		start();
 	}
 	
 	public void start() {
-		System.out.println("Привет, пользователь!");
+		System.out.println("РџСЂРёРІРµС‚, РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ!");
 		System.out.println(help);
 	}
 	
@@ -19,6 +19,6 @@ public class Bot implements MessageListener {
 
 	@Override
 	public void onMessage(String message) {
-		System.out.println("Сообщение получил! " + message);
+		System.out.println("РЎРѕРѕР±С‰РµРЅРёРµ РїРѕР»СѓС‡РёР»! " + message);
 	}
 }
