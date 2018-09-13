@@ -30,9 +30,9 @@ public class User {
 		if(scanner.hasNextLine()) {
 			receivedFromBotMessages.clear();
 			String message = scanner.nextLine();
-			int listenersCount = listeners.size();
-			for (int i = 0; i < listenersCount; i++) {
-				receivedFromBotMessages.add(listeners.get(i).onMessage(message, this));
+			var listenersCount = listeners.size();
+			for (var numberOfListener = 0; numberOfListener < listenersCount; numberOfListener++) {
+				receivedFromBotMessages.add(listeners.get(numberOfListener).onMessage(message, this));
 			}
 		}
 	}

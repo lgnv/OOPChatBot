@@ -20,7 +20,7 @@ public class Bot implements MessageListener {
 	
 	private String getGames() {
 		var listGames = "Список игр:\n";
-		for (String game : games) {
+		for (var game : games) {
 			listGames += game + '\n';
 		}
 		return listGames;
@@ -33,15 +33,17 @@ public class Bot implements MessageListener {
 		if (message.equalsIgnoreCase("игры")) {
 			return getGames();
 		}
-		else if (message.equalsIgnoreCase("Виселица")) {
+		else if (message.equalsIgnoreCase("виселица")) {
 			isPlayingNow = true;
-			Hangman hangman = new Hangman(this);
+			var hangman = new Hangman(this);
 			currentUser.addListener(hangman);
 			return hangman.start();
 		}
-		else {
-			return "Извини, не понял тебя.\n" + help;
+		else if (message.equalsIgnoreCase("help")) {
+			return help;
 		}
-		//System.out.println("Сообщение получил! " + message);
+		else {
+			return "Извини, не понял тебя. Для получения справки напиши \"help\"";
+		}
 	}
 }

@@ -1,29 +1,39 @@
 package First;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Hangman implements MessageListener{
 	private final String rules = "Правила игры \"Виселица\": ..."; // TODO
+	
 	private final String beginning = "Я загадал для тебя слово. У тебя будет 6 попыток "
 			+ "отгадать его. Да прибудет с тобой эрудиция. Игра началась.";
 	
-	private String word = "слово";
-	private final String offerToPlayAgain = "Хочешь сыграть снова? Да\\нет?";
+	private String word;
+	private final String offerToPlayAgain = "Хочешь сыграть снова? Да\\Нет?";
 	private ArrayList<Integer> positionsOfGuessed = new ArrayList<Integer>();
 	private ArrayList<Character> usedLetters = new ArrayList<Character>();
+	private ArrayList<String> words = new ArrayList<String>();
 	private int hp = 6;
 	private boolean gameIsOver = false;
 	private Bot parent;
+	private Random random = new Random();
 	
 	public Hangman(Bot parent) {
 		this.parent = parent;
+		words = getWordsFromFile("words.txt");
+		word = getRandomWord();
 	}
 	
 	public String start() {
 		return rules + '\n' + beginning + '\n' + getGameStatus();
 	}
 	
-	public String acceptTheOption(char letter) {
+	private String acceptTheOption(char letter) {
 		if (usedLetters.contains(letter)) {
 			return "Вы уже вводили эту букву. Попробуйте другую.";
 		}
@@ -42,9 +52,9 @@ public class Hangman implements MessageListener{
 	
 	private boolean checkTheLetter(char letter) {
 		var found = false;
-		for (int i = 0; i < word.length(); i++) {
-			if (word.charAt(i) == letter) {
-				positionsOfGuessed.add(i);
+		for (int position = 0; position < word.length(); position++) {
+			if (word.charAt(position) == letter) {
+				positionsOfGuessed.add(position);
 				found = true;
 			}
 		}
@@ -52,16 +62,24 @@ public class Hangman implements MessageListener{
 	}
 	
 	private String getStatusWord() {
-		String statusWord = "";
-		for (int i = 0; i < word.length(); i++) {
-			if(positionsOfGuessed.contains(i)) {
-				statusWord += word.charAt(i) + " ";
+		var statusWord = "";
+		for (var position = 0; position < word.length(); position++) {
+			if(positionsOfGuessed.contains(position)) {
+				statusWord += word.charAt(position) + " ";
 			}
 			else {
 				statusWord += "_ ";
 			}
 		}
 		return statusWord;
+	}
+	
+	private String getStringUsedLetters() {
+		var result = "Использованные буквы: ";
+		for(var letter : usedLetters) {
+			result += letter + ", ";
+		}
+		return result;
 	}
 	
 	private String getGameStatus() {
@@ -71,11 +89,10 @@ public class Hangman implements MessageListener{
 		}
 		else if (positionsOfGuessed.size() == word.length()) {
 			gameIsOver = true;
-			return "Урааа, ты отгадал слово!!! " + offerToPlayAgain;
+			return "Загаданное слово: " + word + "\n" + "Урааа, ты отгадал слово!!! " + offerToPlayAgain;
 		}
 		else {
-			var statusWord = getStatusWord();
-			return "Слово: " + statusWord + "\nОсталось попыток: " + hp;
+			return "Слово: " + getStatusWord() + "\nОсталось попыток: " + hp + "\n" + getStringUsedLetters();
 		}
 	}
 	
@@ -84,12 +101,18 @@ public class Hangman implements MessageListener{
 		usedLetters.clear();
 		hp = 6;
 		gameIsOver = false;
+		word = getRandomWord();
 		return beginning + '\n' + getGameStatus();
+	}
+	
+	private String getRandomWord() {
+		var index = random.nextInt(words.size());
+		return words.get(index);
 	}
 
 	@Override
 	public String onMessage(String message, User currentUser) {
-		Character firstSymbol = message.length() > 0 ? message.toLowerCase().charAt(0) : ' ';
+		var firstSymbol = message.length() > 0 ? message.toLowerCase().charAt(0) : ' ';
 		if (gameIsOver) {
 			if (message.equalsIgnoreCase("да")) {
 				return restartGame();
@@ -109,5 +132,20 @@ public class Hangman implements MessageListener{
 		else {			
 			return acceptTheOption(firstSymbol);
 		}
-	}	
+	}
+	
+	private ArrayList<String> getWordsFromFile(String filename) {
+		var words = new ArrayList<String>();
+		try(var br = new BufferedReader(new FileReader(filename))){
+			String line;
+		    while((line=br.readLine())!=null){
+		        words.add(line);
+		    }
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return words;
+	}
 }
