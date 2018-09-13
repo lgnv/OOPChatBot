@@ -12,6 +12,12 @@ public class User {
 	
 	private List<MessageListener> listeners = new ArrayList<MessageListener>();
 	
+	private List<String> receivedFromBotMessages = new ArrayList<String>();
+	
+	public List<String> getReceivedFromBotMessages() {
+		return receivedFromBotMessages;
+	}
+	
 	public void addListener(MessageListener listenerToAdd) {
 		listeners.add(listenerToAdd);
 	}
@@ -21,11 +27,12 @@ public class User {
 	}
 	
 	public void sendMessage() {
-		if(scanner.hasNext()) {
-			String message = scanner.next();
+		if(scanner.hasNextLine()) {
+			receivedFromBotMessages.clear();
+			String message = scanner.nextLine();
 			int listenersCount = listeners.size();
 			for (int i = 0; i < listenersCount; i++) {
-				listeners.get(i).onMessage(message, this);
+				receivedFromBotMessages.add(listeners.get(i).onMessage(message, this));
 			}
 		}
 	}

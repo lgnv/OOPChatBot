@@ -9,36 +9,38 @@ public class Bot implements MessageListener {
 	private final List<String> games = Arrays.asList("Виселица");
 	private boolean isPlayingNow = false;
 	
-	public Bot() {	
-		start();
+	
+	public String start() {
+		return "Привет, пользователь!\n" + help;
 	}
 	
-	public void start() {
-		System.out.println("Привет, пользователь!");
-		System.out.println(help);
+	public void endOfGame() {
+		isPlayingNow = false;
 	}
 	
-	public void getGames() {
-		System.out.println("Список игр: ");
+	private String getGames() {
+		var listGames = "Список игр:\n";
 		for (String game : games) {
-			System.out.println(game);
+			listGames += game + '\n';
 		}
+		return listGames;
 	}
 
 	@Override
-	public void onMessage(String message, User currentUser) {
+	public String onMessage(String message, User currentUser) {
 		if (isPlayingNow)
-			return;
+			return "";
 		if (message.equalsIgnoreCase("игры")) {
-			getGames();
+			return getGames();
 		}
 		else if (message.equalsIgnoreCase("Виселица")) {
 			isPlayingNow = true;
-			Hangman hangman = new Hangman();
+			Hangman hangman = new Hangman(this);
 			currentUser.addListener(hangman);
+			return hangman.start();
 		}
 		else {
-			//направить на help
+			return "Извини, не понял тебя.\n" + help;
 		}
 		//System.out.println("Сообщение получил! " + message);
 	}
