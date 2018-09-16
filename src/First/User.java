@@ -5,10 +5,6 @@ import java.util.List;
 import java.util.Scanner;
 
 public class User {
-	private Scanner scanner;
-	public User() {
-		scanner = new Scanner(System.in);
-	}
 	
 	private List<MessageListener> listeners = new ArrayList<MessageListener>();
 	
@@ -26,14 +22,11 @@ public class User {
 		listeners.remove(listenerToRemove);
 	}
 	
-	public void sendMessage() {
-		if(scanner.hasNextLine()) {
+	public void sendMessage(String message) {
 			receivedFromBotMessages.clear();
-			String message = scanner.nextLine();
 			var listenersCount = listeners.size();
 			for (var numberOfListener = 0; numberOfListener < listenersCount; numberOfListener++) {
 				receivedFromBotMessages.add(listeners.get(numberOfListener).onMessage(message, this));
 			}
-		}
 	}
 }

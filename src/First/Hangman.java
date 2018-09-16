@@ -19,7 +19,6 @@ public class Hangman implements MessageListener{
 	private ArrayList<Character> usedLetters = new ArrayList<Character>();
 	private ArrayList<String> words = new ArrayList<String>();
 	private int hp = 6;
-	private boolean gameIsOver = false;
 	private Bot parent;
 	private Random random = new Random();
 	
@@ -29,8 +28,24 @@ public class Hangman implements MessageListener{
 		word = getRandomWord();
 	}
 	
+	public int getHP() {
+		return hp;
+	}
+	
+	public ArrayList<Integer> getPositionsOfGuessed(){
+		return positionsOfGuessed;
+	}
+	
+	public ArrayList<Character> getUsedLetters(){
+		return usedLetters;
+	}
+	
 	public String start() {
 		return rules + '\n' + beginning + '\n' + getGameStatus();
+	}
+	
+	public boolean getGameIsOver() {
+		return hp == 0 || positionsOfGuessed.size() == word.length();
 	}
 	
 	private String acceptTheOption(char letter) {
@@ -84,11 +99,9 @@ public class Hangman implements MessageListener{
 	
 	private String getGameStatus() {
 		if (hp == 0) {
-			gameIsOver = true;
 			return "Увы, ты проиграл. " + offerToPlayAgain;
 		}
 		else if (positionsOfGuessed.size() == word.length()) {
-			gameIsOver = true;
 			return "Загаданное слово: " + word + "\n" + "Урааа, ты отгадал слово!!! " + offerToPlayAgain;
 		}
 		else {
@@ -100,7 +113,6 @@ public class Hangman implements MessageListener{
 		positionsOfGuessed.clear();
 		usedLetters.clear();
 		hp = 6;
-		gameIsOver = false;
 		word = getRandomWord();
 		return beginning + '\n' + getGameStatus();
 	}
@@ -113,7 +125,7 @@ public class Hangman implements MessageListener{
 	@Override
 	public String onMessage(String message, User currentUser) {
 		var firstSymbol = message.length() > 0 ? message.toLowerCase().charAt(0) : ' ';
-		if (gameIsOver) {
+		if (getGameIsOver()) {
 			if (message.equalsIgnoreCase("да")) {
 				return restartGame();
 			}
