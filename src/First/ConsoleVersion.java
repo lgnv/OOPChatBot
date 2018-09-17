@@ -10,15 +10,23 @@ public class ConsoleVersion {
 		var bot = new Bot();
 		System.out.println(bot.start());
 		currentUser.addListener(bot);
+		processInput();
+	}
+
+	private static void processInput() {
 		while (true) {
 			if(scanner.hasNextLine()) {			
 				var messageFromUser = scanner.nextLine();
 				currentUser.sendMessage(messageFromUser);
-				for (var messageFromBot : currentUser.getReceivedFromBotMessages()) {
-					if (messageFromBot != null) {
-						System.out.println(messageFromBot);
-					}
-				}
+				printBotMessages();
+			}
+		}
+	}
+
+	private static void printBotMessages() {
+		for (var messageFromBot : currentUser.getReceivedFromBotMessages()) {
+			if (messageFromBot != null) {
+				System.out.println(messageFromBot);
 			}
 		}
 	}

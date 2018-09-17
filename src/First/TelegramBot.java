@@ -18,26 +18,35 @@ public class TelegramBot extends TelegramLongPollingBot {
 	@Override
 	public void onUpdateReceived(Update e) {
 		var messageFromUser = e.getMessage();
-		var id = messageFromUser.getChatId();
-		if (!users.containsKey(id)){
-			var user = new User();
-			user.addListener(new Bot());
-			users.put(id, user);
-		}
-		var text = messageFromUser.getText();
-		users.get(id).sendMessage(text);
-		for (var textFromBot : users.get(id).getReceivedFromBotMessages()) {
-			var botMessage = new SendMessage();
+		var userId = messageFromUser.getChatId();
+		var textFromUser = messageFromUser.getText();
+		updateUsers(userId);
+		var currentUser = users.get(userId);
+		currentUser.sendMessage(textFromUser);
+		replyToUser(userId, currentUser);
+	}
+
+	private void replyToUser(Long userId, User currentUser) {
+		for (var textFromBot : currentUser.getReceivedFromBotMessages()) {
 			if (textFromBot == null) {
 				continue;
 			}
-			botMessage.setChatId(messageFromUser.getChatId());
+			var botMessage = new SendMessage();
+			botMessage.setChatId(userId);
 			botMessage.setText(textFromBot);
 			try {
 				execute(botMessage);
 			} catch (TelegramApiException e1) {
 				e1.printStackTrace();
 			}
+		}
+	}
+
+	private void updateUsers(Long userId) {
+		if (!users.containsKey(userId)){
+			var user = new User();
+			user.addListener(new Bot());
+			users.put(userId, user);
 		}
 	}
 
