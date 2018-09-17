@@ -39,10 +39,7 @@ public class Bot implements MessageListener {
 			return getGames();
 		}
 		else if (message.equalsIgnoreCase("виселица")) {
-			startOfGame();
-			var hangman = new Hangman(this);
-			currentUser.addListener(hangman);
-			return hangman.start();
+			return startPlayHangman(currentUser);
 		}
 		else if (message.equalsIgnoreCase("help")) {
 			return help;
@@ -50,5 +47,12 @@ public class Bot implements MessageListener {
 		else {
 			return "Извини, не понял тебя. Для получения справки напиши \"help\"";
 		}
+	}
+
+	private String startPlayHangman(User currentUser) {
+		startOfGame();
+		var hangman = new Hangman(this);
+		currentUser.addListener(hangman);
+		return hangman.start();
 	}
 }
