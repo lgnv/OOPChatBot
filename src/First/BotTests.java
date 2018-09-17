@@ -4,8 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import com.sun.corba.se.spi.orbutil.fsm.Guard.Result;
-
 class BotTests {
 
 	@Test

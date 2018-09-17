@@ -2,10 +2,6 @@ package First;
 
 import java.util.Scanner;
 
-import org.telegram.telegrambots.ApiContextInitializer;
-import org.telegram.telegrambots.meta.TelegramBotsApi;
-import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
-
 public class ConsoleVersion {
 	private static Scanner scanner = new Scanner(System.in);
 	private static User currentUser = new User();
