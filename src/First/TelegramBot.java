@@ -32,6 +32,13 @@ public class TelegramBot extends TelegramLongPollingBot {
 					+ "MuHXyhIaWj6k-9VYlFqozTsrEZViO01TJp6CgofXHPD1lC0bFQOZ6uit"
 					+ "BgoTNMRhKC4pMOOlV-Yg");
 		}
+		else if (textFromUser.equalsIgnoreCase("/start")) {
+			try {
+				execute(new SendMessage(userId, Bot.start()));
+			} catch (TelegramApiException e1) {
+				e1.printStackTrace();
+			}
+		}
 		else {
 			replyToUser(userId, currentUser);
 		}
