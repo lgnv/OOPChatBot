@@ -28,4 +28,8 @@ public class User {
 				receivedFromBotMessages.add(listeners.get(numberOfListener).onMessage(message, this));
 			}
 	}
+
+	public int getListenersCount() {
+		return listeners.size();
+	}
 }

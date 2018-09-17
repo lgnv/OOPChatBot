@@ -14,6 +14,11 @@ public class Bot implements MessageListener {
 		return "Привет, пользователь!\n" + help;
 	}
 	
+	public void startOfGame() {
+		isPlayingNow = true;
+		
+	}
+	
 	public void endOfGame() {
 		isPlayingNow = false;
 	}
@@ -34,7 +39,7 @@ public class Bot implements MessageListener {
 			return getGames();
 		}
 		else if (message.equalsIgnoreCase("виселица")) {
-			isPlayingNow = true;
+			startOfGame();
 			var hangman = new Hangman(this);
 			currentUser.addListener(hangman);
 			return hangman.start();
