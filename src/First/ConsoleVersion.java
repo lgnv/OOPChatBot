@@ -15,7 +15,9 @@ public class ConsoleVersion {
 				var messageFromUser = scanner.nextLine();
 				currentUser.sendMessage(messageFromUser);
 				for (var messageFromBot : currentUser.getReceivedFromBotMessages()) {
-					System.out.println(messageFromBot);
+					if (messageFromBot != null) {
+						System.out.println(messageFromBot);
+					}
 				}
 			}
 		}
