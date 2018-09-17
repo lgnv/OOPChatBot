@@ -18,20 +18,20 @@ public class TelegramBot extends TelegramLongPollingBot {
 
 	@Override
 	public void onUpdateReceived(Update e) {
-		Message messageFromUser = e.getMessage();
-		if (messageFromUser == null || !messageFromUser.hasText()) {
-			return;
-		}
+		var messageFromUser = e.getMessage();
 		var id = messageFromUser.getChatId();
 		if (!users.containsKey(id)){
 			var user = new User();
 			user.addListener(new Bot());
 			users.put(id, user);
 		}
-		String text = messageFromUser.getText();
+		var text = messageFromUser.getText();
 		users.get(id).sendMessage(text);
 		for (var textFromBot : users.get(id).getReceivedFromBotMessages()) {
 			var botMessage = new SendMessage();
+			if (textFromBot == null) {
+				continue;
+			}
 			botMessage.setChatId(messageFromUser.getChatId());
 			botMessage.setText(textFromBot);
 			try {

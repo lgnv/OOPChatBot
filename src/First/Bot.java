@@ -29,7 +29,7 @@ public class Bot implements MessageListener {
 	@Override
 	public String onMessage(String message, User currentUser) {
 		if (isPlayingNow)
-			return "";
+			return null;
 		if (message.equalsIgnoreCase("игры")) {
 			return getGames();
 		}
