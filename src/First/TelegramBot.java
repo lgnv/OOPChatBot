@@ -1,16 +1,15 @@
 package First;
 
+import java.util.HashMap;
+
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 public class TelegramBot extends TelegramLongPollingBot {
-	private User currentUser;
-	
-	public TelegramBot(User currentUser) {
-		this.currentUser = currentUser;
-	}
+	private HashMap<Long, User> users = new HashMap<Long, User>();
 	
 	@Override
 	public String getBotUsername() {
@@ -20,14 +19,27 @@ public class TelegramBot extends TelegramLongPollingBot {
 	@Override
 	public void onUpdateReceived(Update e) {
 		Message messageFromUser = e.getMessage();
+		if (messageFromUser == null || !messageFromUser.hasText()) {
+			return;
+		}
+		var id = messageFromUser.getChatId();
+		if (!users.containsKey(id)){
+			var user = new User();
+			user.addListener(new Bot());
+			users.put(id, user);
+		}
 		String text = messageFromUser.getText();
-		currentUser.sendMessage(text);
-		for (var textFromBot : currentUser.getReceivedFromBotMessages()) {
+		users.get(id).sendMessage(text);
+		for (var textFromBot : users.get(id).getReceivedFromBotMessages()) {
 			var botMessage = new SendMessage();
 			botMessage.setChatId(messageFromUser.getChatId());
 			botMessage.setText(textFromBot);
+			try {
+				execute(botMessage);
+			} catch (TelegramApiException e1) {
+				e1.printStackTrace();
+			}
 		}
-		System.out.println(text);
 	}
 
 	@Override

@@ -6,19 +6,11 @@ import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
 
-public class EntryPoint {
+public class ConsoleVersion {
 	private static Scanner scanner = new Scanner(System.in);
 	private static User currentUser = new User();
 	
 	public static void main(String[] args) {
-		ApiContextInitializer.init();
-        TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
-        try {
-            telegramBotsApi.registerBot(new TelegramBot(currentUser));
-        } catch (TelegramApiRequestException e) {
-            e.printStackTrace();
-        }
-        
 		var bot = new Bot();
 		System.out.println(bot.start());
 		currentUser.addListener(bot);
