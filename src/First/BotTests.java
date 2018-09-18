@@ -9,7 +9,7 @@ class BotTests {
 	@Test
 	void testOpenHangman() {
 		var bot = new Bot();
-		var user = new User();
+		var user = new User(0);
 		bot.onMessage("виселица", user);
 		assertTrue(user.getListenersCount() == 1);
 	}
@@ -40,8 +40,7 @@ class BotTests {
 	 
 	 @Test
 	 void testStart() {
-		 var bot = new Bot();
-		 var result = bot.start();
+		 var result = Bot.start();
 		 assertTrue(result.contains("Привет"));
 	 }
 	 
