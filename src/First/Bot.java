@@ -4,13 +4,13 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Bot implements MessageListener {
-	private final String help = "Я игровой бот. Чтобы получить список игр, в которые я умею играть, напиши \"игры\".\n"
+	private static final String help = "Я игровой бот. Чтобы получить список игр, в которые я умею играть, напиши \"игры\".\n"
 			+ "Для начала игры напиши её название.";
 	private final List<String> games = Arrays.asList("Виселица");
 	private boolean isPlayingNow = false;
 	
 	
-	public String start() {
+	public static String start() {
 		return "Привет, пользователь!\n" + help;
 	}
 	
