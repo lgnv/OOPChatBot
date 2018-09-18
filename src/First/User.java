@@ -5,9 +5,13 @@ import java.util.List;
 
 public class User {
 	
+	private long id;
 	private List<MessageListener> listeners = new ArrayList<MessageListener>();
-	
 	private List<String> receivedFromBotMessages = new ArrayList<String>();
+	
+	public User(long id) {
+		this.id = id;
+	}
 	
 	public List<String> getReceivedFromBotMessages() {
 		return receivedFromBotMessages;

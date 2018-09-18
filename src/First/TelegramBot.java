@@ -26,11 +26,12 @@ public class TelegramBot extends TelegramLongPollingBot {
 		var currentUser = users.get(userId);
 		currentUser.sendMessage(textFromUser);
 		if (textFromUser.equalsIgnoreCase("cat")) {
-			sendGif(userId, "https://psv4.userapi.com/c834502/u140417658/"
-					+ "docs/d13/cfae75c3f120/stereotipy.gif?extra=Ygx2aCfu_Up"
-					+ "AUTB-45umcTNrU_OEicuPTQkUaKuNgJNRS-eFhY2ET4QPoKRMu2gKbP"
-					+ "MuHXyhIaWj6k-9VYlFqozTsrEZViO01TJp6CgofXHPD1lC0bFQOZ6uit"
-					+ "BgoTNMRhKC4pMOOlV-Yg");
+			var link = new StringBuilder("https://psv4.userapi.com/c834502/u140417658/");
+			link.append("docs/d13/cfae75c3f120/stereotipy.gif?extra=Ygx2aCfu_Up");
+			link.append("AUTB-45umcTNrU_OEicuPTQkUaKuNgJNRS-eFhY2ET4QPoKRMu2gKbP");
+			link.append("MuHXyhIaWj6k-9VYlFqozTsrEZViO01TJp6CgofXHPD1lC0bFQOZ6uit");
+			link.append("BgoTNMRhKC4pMOOlV-Yg");
+			sendGif(userId, link.toString());
 		}
 		else if (textFromUser.equalsIgnoreCase("/start")) {
 			try {
@@ -73,7 +74,7 @@ public class TelegramBot extends TelegramLongPollingBot {
 
 	private void updateUsers(Long userId) {
 		if (!users.containsKey(userId)){
-			var user = new User();
+			var user = new User(userId);
 			user.addListener(new Bot());
 			users.put(userId, user);
 		}

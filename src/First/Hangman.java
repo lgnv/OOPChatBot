@@ -102,10 +102,21 @@ public class Hangman implements MessageListener{
 			return "Увы, ты проиграл. " + offerToPlayAgain;
 		}
 		else if (positionsOfGuessed.size() == word.length()) {
-			return "Загаданное слово: " + word + "\n" + "Урааа, ты отгадал слово!!! " + offerToPlayAgain;
+			var answer = new StringBuilder("Загаданное слово: ");
+			answer.append(word);
+			answer.append("\n");
+			answer.append("Урааа, ты отгадал слово!!! ");
+			answer.append(offerToPlayAgain);
+			return answer.toString();
 		}
 		else {
-			return "Слово: " + getStatusWord() + "\nОсталось попыток: " + hp + "\n" + getStringUsedLetters();
+			var answer = new StringBuilder("Слово: ");
+			answer.append(getStatusWord());
+			answer.append("\nОсталось попыток: ");
+			answer.append(hp);
+			answer.append("\n");
+			answer.append(getStringUsedLetters());
+			return answer.toString();
 		}
 	}
 	
