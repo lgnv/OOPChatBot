@@ -1,16 +1,13 @@
 package First;
 
-import java.util.HashMap;
-
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
-import org.telegram.telegrambots.meta.api.methods.send.SendAnimation;
 import org.telegram.telegrambots.meta.api.methods.send.SendDocument;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 public class TelegramBot extends TelegramLongPollingBot {
-	private HashMap<Long, User> users = new HashMap<Long, User>();
+	private UserManager userManager = new UserManager();
 	
 	@Override
 	public String getBotUsername() {
@@ -22,8 +19,7 @@ public class TelegramBot extends TelegramLongPollingBot {
 		var messageFromUser = e.getMessage();
 		var userId = messageFromUser.getChatId();
 		var textFromUser = messageFromUser.getText();
-		updateUsers(userId);
-		var currentUser = users.get(userId);
+		var currentUser = userManager.getUser(userId);
 		currentUser.sendMessage(textFromUser);
 		if (textFromUser.equalsIgnoreCase("cat")) {
 			var link = new StringBuilder("https://psv4.userapi.com/c834502/u140417658/");
@@ -69,14 +65,6 @@ public class TelegramBot extends TelegramLongPollingBot {
 			execute(gif);
 		} catch (TelegramApiException e) {
 			e.printStackTrace();
-		}
-	}
-
-	private void updateUsers(Long userId) {
-		if (!users.containsKey(userId)){
-			var user = new User(userId);
-			user.addListener(new Bot());
-			users.put(userId, user);
 		}
 	}
 
