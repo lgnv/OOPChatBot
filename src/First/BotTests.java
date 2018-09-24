@@ -3,11 +3,10 @@ package First;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.HashMap;
-import java.util.Map;
 import org.junit.jupiter.api.Test;
 
 class BotTests {
-	Map<String, Game> games = new HashMap<String, Game>() {{ put("Виселица", new Hangman()); }};
+	private HashMap<String, Game> games = new HashMap<String, Game>() {{ put("Виселица", new Hangman()); }};
 	
 	private Bot getBot() {
 		return new Bot(games);
