@@ -1,6 +1,7 @@
 package First;
 
 import java.util.Scanner;
+
 import java.util.HashMap;
 
 public class ConsoleVersion {
@@ -8,8 +9,7 @@ public class ConsoleVersion {
 	private static User currentUser = new User(0);
 	
 	public static void main(String[] args) {
-		var games = new HashMap<String, Game>();
-		games.put("Виселица", new Hangman());
+		var games = new HashMap<String, Game>() {{ put("Виселица", new Hangman()); }};
 		var bot = new Bot(games);
 		System.out.println(Bot.start());
 		currentUser.addListener(bot);

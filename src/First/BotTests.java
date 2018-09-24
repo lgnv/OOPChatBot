@@ -1,39 +1,26 @@
 package First;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+import java.util.HashMap;
 import org.junit.jupiter.api.Test;
 
 class BotTests {
-
-	@Test
-	void testOpenHangman() {
-		var bot = new Bot();
-		var user = new User(0);
-		bot.onMessage("виселица", user);
-		assertTrue(user.getListenersCount() == 1);
+	private HashMap<String, Game> games = new HashMap<String, Game>() {{ put("Виселица", new Hangman()); }};
+	
+	private Bot getBot() {
+		return new Bot(games);
 	}
 	
 	@Test
-	void testBotIsBusy() {
-		var bot = new Bot();
-		bot.startOfGame();
+	void testUndefinedCommand() {
+		var bot = getBot();
 		var result = bot.onMessage("some_message", null);
 		assertTrue(result == null);
 	}
 	
-	@Test 
-	void testBotIsNotBusy() {
-		var bot = new Bot();
-		bot.startOfGame();
-		bot.endOfGame();
-		var result = bot.onMessage("some_message", null);
-		assertTrue(result != null);
-	}
-	
 	 @Test
 	 void testGetGames() {
-		 var bot = new Bot();
+		 var bot = getBot();
 		 var result = bot.onMessage("игры", null);
 		 assertTrue(result.contains("Виселица"));
 	 }
@@ -46,7 +33,7 @@ class BotTests {
 	 
 	 @Test
 	 void testHelp() {
-		 var bot = new Bot();
+		 var bot = getBot();
 		 var result = bot.onMessage("help", null);
 		 assertTrue(result.contains("напиши"));
 	 }
