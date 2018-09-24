@@ -9,7 +9,8 @@ class HangmanTests {
 	@Test
 	void testLetterInWord() {
 		var hangman = getHangman();
-		hangman.onMessage("л", null);
+		var user = new User(0);
+		hangman.onMessage("л", user);
 		assertTrue(hangman.getHP() == 6);
 		assertTrue(hangman.getPositionsOfGuessed().size() == 1);
 		assertTrue(hangman.getPositionsOfGuessed().get(0) == 1);
@@ -20,7 +21,8 @@ class HangmanTests {
 	@Test
 	void testLetterNotInWord() {
 		var hangman = getHangman();
-		hangman.onMessage("а", null);
+		var user = new User(0);
+		hangman.onMessage("а", user);
 		assertTrue(hangman.getHP() == 5);
 		assertTrue(hangman.getPositionsOfGuessed().size() == 0);
 		assertTrue(hangman.getUsedLetters().size() == 1);
@@ -42,51 +44,54 @@ class HangmanTests {
 	@Test
 	void testLetterWasUsedBefore() {
 		var hangman = getHangman();
-		hangman.onMessage("а", null);
+		var user = new User(0);
+		hangman.onMessage("а", user);
 		assertTrue(hangman.getHP() == 5);
 		assertTrue(hangman.getPositionsOfGuessed().size() == 0);
 		assertTrue(hangman.getUsedLetters().size() == 1);
 		assertTrue(hangman.getUsedLetters().get(0) == 'а');
-		hangman.onMessage("а", null);
+		hangman.onMessage("а", user);
 		assertTrue(hangman.getHP() == 5);
 	}
 	
 	@Test
 	void testGameOver() {
 		var hangman = getHangman();
-		hangman.onMessage("а", null);
-		hangman.onMessage("q", null);
-		hangman.onMessage("t", null);
-		hangman.onMessage("w", null);
-		hangman.onMessage("e", null);
-		hangman.onMessage("r", null);
+		var user = new User(0);
+		hangman.onMessage("а", user);
+		hangman.onMessage("q", user);
+		hangman.onMessage("t", user);
+		hangman.onMessage("w", user);
+		hangman.onMessage("e", user);
+		hangman.onMessage("r", user);
 		assertTrue(hangman.getGameIsOver());
 	}
 	
 	@Test
 	void testRestartGame() {
 		var hangman = getHangman();
-		hangman.onMessage("о", null);
+		var user = new User(0);
+		hangman.onMessage("о", user);
 		assertTrue(hangman.getPositionsOfGuessed().size() == 2);
 		assertTrue(hangman.getUsedLetters().size() == 1);
-		hangman.onMessage("q", null);
-		hangman.onMessage("t", null);
-		hangman.onMessage("w", null);
-		hangman.onMessage("e", null);
-		hangman.onMessage("r", null);
-		hangman.onMessage("f", null);
+		hangman.onMessage("q", user);
+		hangman.onMessage("t", user);
+		hangman.onMessage("w", user);
+		hangman.onMessage("e", user);
+		hangman.onMessage("r", user);
+		hangman.onMessage("f", user);
 		assertTrue(hangman.getGameIsOver());
-		hangman.onMessage("да", null);
+		hangman.onMessage("да", user);
 		assertTrue(hangman.getPositionsOfGuessed().size() == 0);
 		assertTrue(hangman.getUsedLetters().size() == 0);
-		
 	}
+	
 	private Hangman getHangman() {
-		var h = new Hangman(null);
+		var h = new Hangman();
 		try {
 		       var field = h.getClass().getDeclaredField("word");
 		       field.setAccessible(true);
-		       field.set(h, (String)"слово");;
+		       field.set(h, (String)"слово");
 		   } catch (NoSuchFieldException | IllegalAccessException e) {
 		       e.printStackTrace();
 		   }
