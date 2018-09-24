@@ -41,7 +41,7 @@ public class TelegramBot extends TelegramLongPollingBot {
 		}
 	}
 
-	private void replyToUser(Long userId, User currentUser) {
+	private void replyToUser(long userId, User currentUser) {
 		for (var textFromBot : currentUser.getReceivedFromBotMessages()) {
 			if (textFromBot == null) {
 				continue;

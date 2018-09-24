@@ -20,5 +20,7 @@
 	<classpathentry kind="lib" path="lib/telegrambots-meta-4.1.jar"/>
 	<classpathentry kind="lib" path="lib/telegrambots-spring-boot-starter-4.1.jar"/>
 	<classpathentry kind="lib" path="lib/telegrambotsextensions-4.1.jar"/>
+	<classpathentry kind="lib" path="lib/sdk-0.5.12.jar"/>
+	<classpathentry kind="lib" path="lib/gson-2.2.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
