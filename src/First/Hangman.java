@@ -7,25 +7,31 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Hangman implements MessageListener{
+public class Hangman implements MessageListener, Game {
 	private final String rules = "Правила игры \"Виселица\": ..."; // TODO
 	
 	private final String beginning = "Я загадал для тебя слово. У тебя будет 6 попыток "
 			+ "отгадать его. Да прибудет с тобой эрудиция. Игра началась.";
-	
 	private String word;
 	private final String offerToPlayAgain = "Хочешь сыграть снова? Да\\Нет?";
 	private ArrayList<Integer> positionsOfGuessed = new ArrayList<Integer>();
 	private ArrayList<Character> usedLetters = new ArrayList<Character>();
 	private ArrayList<String> words = new ArrayList<String>();
 	private int hp = 6;
-	private Bot parent;
 	private Random random = new Random();
 	
-	public Hangman(Bot parent) {
-		this.parent = parent;
+	public Hangman() {
 		words = getWordsFromFile("words.txt");
 		word = getRandomWord();
+	}
+	
+	public String getName(){
+		return "Виселица";
+	}
+	
+	public String play(User user) {
+		user.addListener(this);
+		return this.start();
 	}
 	
 	public int getHP() {
@@ -142,7 +148,6 @@ public class Hangman implements MessageListener{
 			}
 			else if (message.equalsIgnoreCase("нет")) {
 				currentUser.removeListener(this);
-				parent.endOfGame();
 				return "Хорошо. Спасибо за игру!";
 			}
 			else {

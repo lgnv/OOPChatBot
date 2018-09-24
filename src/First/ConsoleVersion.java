@@ -1,13 +1,16 @@
 package First;
 
 import java.util.Scanner;
+import java.util.HashMap;
 
 public class ConsoleVersion {
 	private static Scanner scanner = new Scanner(System.in);
 	private static User currentUser = new User(0);
 	
 	public static void main(String[] args) {
-		var bot = new Bot();
+		var games = new HashMap<String, Game>();
+		games.put("Виселица", new Hangman());
+		var bot = new Bot(games);
 		System.out.println(Bot.start());
 		currentUser.addListener(bot);
 		processInput();
