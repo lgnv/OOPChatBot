@@ -84,8 +84,8 @@ class HangmanTests {
 		hangman.onMessage("да", user);
 		assertTrue(hangman.getPositionsOfGuessed().size() == 0);
 		assertTrue(hangman.getUsedLetters().size() == 0);
-		
 	}
+	
 	private Hangman getHangman() {
 		var h = new Hangman();
 		try {
