@@ -1,8 +1,11 @@
-package First;
+package First.Tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
+
+import First.Hangman;
+import First.User;
 
 class HangmanTests {
 	

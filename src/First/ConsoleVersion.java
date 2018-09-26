@@ -9,8 +9,7 @@ public class ConsoleVersion {
 	private static User currentUser = new User(0);
 	
 	public static void main(String[] args) {
-		var games = new HashMap<String, Game>() {{ put("Виселица", new Hangman()); }};
-		var bot = new Bot(games);
+		var bot = GeneratorBot.getBot();
 		System.out.println(Bot.start());
 		currentUser.addListener(bot);
 		processInput();
