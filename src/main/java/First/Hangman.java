@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Hangman implements MessageListener, Game {
-	private final String rules = "Правила игры \"Виселица\": ..."; // TODO
+	private final String rules = "Правила игры \"Виселица\": ...";
 	
 	private final String beginning = "Я загадал для тебя слово. У тебя будет 6 попыток "
 			+ "отгадать его. Да прибудет с тобой эрудиция. Игра началась.";
