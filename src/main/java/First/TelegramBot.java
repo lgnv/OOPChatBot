@@ -6,6 +6,8 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+import java.util.regex.Pattern;
+
 public class TelegramBot extends TelegramLongPollingBot {
 	private UserManager userManager = new UserManager();
 	
@@ -41,6 +43,12 @@ public class TelegramBot extends TelegramLongPollingBot {
 		}
 	}
 
+	private String fixText(String text) {
+		var pattern = Pattern.compile("(&quot;)|(&laquo;)|(&raquo;)");
+		var matcher = pattern.matcher(text);
+		return matcher.replaceAll("\"");
+	}
+
 	private void replyToUser(long userId, User currentUser) {
 		for (var textFromBot : currentUser.getReceivedFromBotMessages()) {
 			if (textFromBot == null) {
@@ -48,7 +56,7 @@ public class TelegramBot extends TelegramLongPollingBot {
 			}
 			var botMessage = new SendMessage();
 			botMessage.setChatId(userId);
-			botMessage.setText(textFromBot); 
+			botMessage.setText(fixText(textFromBot));
 			try {
 				execute(botMessage);
 			} catch (TelegramApiException e1) {
