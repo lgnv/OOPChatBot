@@ -9,7 +9,15 @@ public class User {
 	private List<MessageListener> listeners = new ArrayList<MessageListener>();
 	private List<String> receivedFromBotMessages = new ArrayList<String>();
 	private ArrayList<Integer> hashesReceivedJokes = new ArrayList<Integer>();
-	
+	private boolean isPlaying = false;
+
+	public boolean getIsPlaying(){
+		return isPlaying;
+	}
+
+	public void changeIsPlaying(){
+		isPlaying = !isPlaying;
+	}
 	public User(long id) {
 		this.id = id;
 	}

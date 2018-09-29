@@ -8,10 +8,8 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Hangman implements MessageListener, Game {
-	private final String rules = "Правила игры \"Виселица\": ...";
-	
-	private final String beginning = "Я загадал для тебя слово. У тебя будет 6 попыток "
-			+ "отгадать его. Да прибудет с тобой эрудиция. Игра началась.";
+	private final String rules = "Правила игры \"Виселица\":\n Я загадал для тебя слово. У тебя будет 6 попыток "
+			+ "отгадать его. Да прибудет с тобой эрудиция. Игра началась.\n В любой момент ты можешь выйти из игры по команде \"выйти\"";
 	private String word;
 	private final String offerToPlayAgain = "Хочешь сыграть снова? Да\\Нет?";
 	private ArrayList<Integer> positionsOfGuessed = new ArrayList<Integer>();
@@ -47,7 +45,7 @@ public class Hangman implements MessageListener, Game {
 	}
 	
 	public String start() {
-		return rules + '\n' + beginning + '\n' + getGameStatus();
+		return  rules + '\n' + getGameStatus();
 	}
 	
 	public boolean getGameIsOver() {
@@ -131,7 +129,13 @@ public class Hangman implements MessageListener, Game {
 		usedLetters.clear();
 		hp = 6;
 		word = getRandomWord();
-		return beginning + '\n' + getGameStatus();
+		return rules + '\n' + getGameStatus();
+	}
+
+	private String finishGame(User user){
+		user.changeIsPlaying();
+		user.removeListener(this);
+		return "Хорошо. Спасибо за игру!";
 	}
 	
 	private String getRandomWord() {
@@ -142,24 +146,22 @@ public class Hangman implements MessageListener, Game {
 	@Override
 	public String onMessage(String message, User currentUser) {
 		var firstSymbol = message.length() > 0 ? message.toLowerCase().charAt(0) : ' ';
+		if (message.equalsIgnoreCase("выйти")){
+			return finishGame(currentUser);
+		}
 		if (getGameIsOver()) {
 			if (message.equalsIgnoreCase("да")) {
 				return restartGame();
 			}
-			else if (message.equalsIgnoreCase("нет")) {
-				currentUser.removeListener(this);
-				return "Хорошо. Спасибо за игру!";
+			if (message.equalsIgnoreCase("нет")) {
+				return finishGame(currentUser);
 			}
-			else {
-				return "Извини, не понял тебя. Напиши да\\нет";
-			}
+			return "Извини, не понял тебя. Напиши да\\нет";
 		}
-		else if (message.length() != 1 || !Character.isLetter(firstSymbol)) {
+		if (message.length() != 1 || !Character.isLetter(firstSymbol)) {
 			return "Упс, нужно ввести всего лишь одну букву!";
 		}
-		else {			
-			return acceptTheOption(firstSymbol);
-		}
+		return acceptTheOption(firstSymbol);
 	}
 	
 	private ArrayList<String> getWordsFromFile(String filename) {
