@@ -8,14 +8,25 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.Date;
 
-public class JokeFromSite extends JokeDownloader{
+public class JokeFromSite implements JokeDownloader{
 	private long timer;
+	private LinkedList<String> jokes;
+	private String source;
 
 	public JokeFromSite(String source) {
-		super(source);
+		jokes = getJokesList(source);
+		this.source = source;
 	}
 
-	protected LinkedList<String> getJokesList(String source) {
+	public String getJoke() {
+		if (jokes.size() == 0 && getMillisecondToHours(timer, new Date().getTime()) >= 24){
+			jokes = getJokesList(source);
+		}
+		var joke = jokes.pollLast();
+		return joke == null ? "На сегодня шутки закончились, прости" : joke;
+	}
+
+	public LinkedList<String> getJokesList(String source) {
 		timer = new Date().getTime();
 		String content = "";
 		try {
@@ -53,4 +64,8 @@ public class JokeFromSite extends JokeDownloader{
         }
         return builder.toString();
     }
+
+    public static int getMillisecondToHours(long oldTime, long newTime){
+		return (int)(Math.abs(newTime - oldTime)) / (1000 * 60 * 60);
+	}
 }
