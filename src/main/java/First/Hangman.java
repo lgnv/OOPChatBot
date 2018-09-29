@@ -27,9 +27,10 @@ public class Hangman implements MessageListener, Game {
 		return "Виселица";
 	}
 	
-	public String play(User user) {
-		user.addListener(this);
-		return this.start();
+	public static String play(User user) {
+		var hangman = new Hangman();
+		user.addListener(hangman);
+		return hangman.start();
 	}
 	
 	public int getHP() {

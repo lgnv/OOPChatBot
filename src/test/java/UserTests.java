@@ -1,5 +1,7 @@
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.HashMap;
+import java.util.function.Function;
+
 import org.junit.jupiter.api.Test;
 
 import First.Bot;
@@ -10,7 +12,7 @@ import First.JokeFromFile;
 import First.User;
 
 class UserTests {
-	private HashMap<String, Game> games = new HashMap<String, Game>() {{ put("Виселица", new Hangman()); }};
+	private HashMap<String, Function<User, String>> games = new HashMap<>() {{ put("виселица", (User user)-> Hangman.play(user)); }};
 	private JokeDownloader jokerFile = new JokeFromFile("top100.txt");
 	
 	private Bot getBot() {
