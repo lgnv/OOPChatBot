@@ -27,21 +27,23 @@ public class Bot implements MessageListener {
 
 	@Override
 	public String onMessage(String message, User currentUser) {
+		if (currentUser.getIsPlaying()){
+			return null;
+		}
 		if (message.equalsIgnoreCase("игры")) {
 			return getGames();
 		}
-		else if (games.keySet().contains(message.toLowerCase())) {
+		if (games.keySet().contains(message.toLowerCase())) {
+			currentUser.changeIsPlaying();
 			return games.get(message).play(currentUser);
 			
 		}
-		else if (message.equalsIgnoreCase("help")) {
+		if (message.equalsIgnoreCase("help")) {
 			return help;
 		}
-		else if (message.equalsIgnoreCase("кек")) {
+		if (message.equalsIgnoreCase("кек")) {
 			return joker.getJoke();
 		}
-		else {
-			return null;
-		}
+		return null;
 	}
 }

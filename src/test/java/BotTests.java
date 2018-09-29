@@ -7,6 +7,7 @@ import First.Game;
 import First.Hangman;
 import First.JokeDownloader;
 import First.JokeFromFile;
+import First.User;
 
 class BotTests {
 	private HashMap<String, Game> games = new HashMap<String, Game>() {{ put("Виселица", new Hangman()); }};
@@ -19,14 +20,14 @@ class BotTests {
 	@Test
 	void testUndefinedCommand() {
 		var bot = getBot();
-		var result = bot.onMessage("some_message", null);
-		assertTrue(result == null);
+		var result = bot.onMessage("some_message", new User(0));
+		assertNull(result);
 	}
 	
 	 @Test
 	 void testGetGames() {
 		 var bot = getBot();
-		 var result = bot.onMessage("игры", null);
+		 var result = bot.onMessage("игры", new User(0));
 		 assertTrue(result.contains("Виселица"));
 	 }
 	 
@@ -39,7 +40,7 @@ class BotTests {
 	 @Test
 	 void testHelp() {
 		 var bot = getBot();
-		 var result = bot.onMessage("help", null);
+		 var result = bot.onMessage("help", new User(0));
 		 assertTrue(result.contains("напиши"));
 	 }
 

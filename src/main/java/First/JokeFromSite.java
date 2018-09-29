@@ -6,13 +6,17 @@ import java.net.URL;
 import java.util.LinkedList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.Date;
 
-public class JokeFromSite extends JokeDownloader{	
+public class JokeFromSite extends JokeDownloader{
+	private long timer;
+
 	public JokeFromSite(String source) {
 		super(source);
 	}
 
 	protected LinkedList<String> getJokesList(String source) {
+		timer = new Date().getTime();
 		String content = "";
 		try {
 			content = getContentOfHTTPPage(source);
