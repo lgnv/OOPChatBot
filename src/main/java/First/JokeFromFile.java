@@ -6,12 +6,14 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.LinkedList;
 
-public class JokeFromFile extends JokeDownloader{
+public class JokeFromFile implements JokeDownloader{
+	private LinkedList<String> jokes;
+
 	public JokeFromFile(String source) {
-		super(source);
+		jokes = getJokesList(source);
 	}
 
-	protected LinkedList<String> getJokesList(String filename) {
+	public LinkedList<String> getJokesList(String filename) {
 		var jokes = new LinkedList<String>();
 		try(var br = new BufferedReader(new FileReader(filename))){
 			var builder = new StringBuilder();
@@ -39,5 +41,10 @@ public class JokeFromFile extends JokeDownloader{
 			e.printStackTrace();
 		}
 		return jokes;
+	}
+
+	public String getJoke() {
+		var joke = jokes.pollLast();
+		return joke == null ? "На сегодня шутки закончились, прости" : joke;
 	}
 }
