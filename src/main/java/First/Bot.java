@@ -1,14 +1,15 @@
 package First;
 
 import java.util.HashMap;
+import java.util.function.Function;
 
 public class Bot implements MessageListener {
 	private static final String help = "Я развлекательный бот. Чтобы получить список игр, в которые я умею играть, напиши \"игры\".\n"
 			+ "Для начала игры напиши её название.\n Чтобы получить свежую шутку напиши \"кек\"";
-	private HashMap<String, Game> games;
+	private HashMap<String, Function<User, String>> games;
 	private JokeDownloader joker;
 	
-	public Bot(HashMap<String, Game> games, JokeDownloader joker) {
+	public Bot(HashMap<String, Function<User, String>> games, JokeDownloader joker) {
 		this.games = games;
 		this.joker = joker;
 	}
@@ -35,7 +36,7 @@ public class Bot implements MessageListener {
 		}
 		if (games.keySet().contains(message.toLowerCase())) {
 			currentUser.changeIsPlaying();
-			return games.get(message).play(currentUser);
+			return games.get(message).apply(currentUser);
 			
 		}
 		if (message.equalsIgnoreCase("help")) {
