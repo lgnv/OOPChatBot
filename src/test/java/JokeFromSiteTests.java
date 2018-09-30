@@ -15,27 +15,27 @@ public class JokeFromSiteTests {
     }
 
     @Test
-    void testGetJokes(){
+    void testGetOneJoke(){
         var joker = new JokeFromSite("https://www.anekdot.ru/last/good/");
-        assertNotEquals(joker.getJoke(), "На сегодня шутки закончились, прости");
+        assertNotEquals("На сегодня шутки закончились, прости", joker.getJoke());
     }
 
     @Test
     void testUpdateByTimerAfter24(){
         var joker = getJokerForTestsTimer(1000 * 60 * 60 * 24);
-        assertNotEquals(joker.getJoke(), "На сегодня шутки закончились, прости");
+        assertNotEquals("На сегодня шутки закончились, прости", joker.getJoke());
     }
 
     @Test
     void testUpdateByTimerAfter25(){
         var joker = getJokerForTestsTimer(1000 * 60 * 60 * 25);
-        assertNotEquals(joker.getJoke(), "На сегодня шутки закончились, прости");
+        assertNotEquals("На сегодня шутки закончились, прости", joker.getJoke());
     }
 
     @Test
     void testNotUpdateByTimerAfter23(){
         var joker = getJokerForTestsTimer(1000 * 60 * 60 * 23);
-        assertEquals(joker.getJoke(), "На сегодня шутки закончились, прости");
+        assertEquals("На сегодня шутки закончились, прости", joker.getJoke());
     }
 
     private JokeDownloader getJokerForTestsTimer(long passedTime){
