@@ -38,7 +38,10 @@ public class User {
 			receivedFromBotMessages.clear();
 			var listenersCount = listeners.size();
 			for (var numberOfListener = 0; numberOfListener < listenersCount; numberOfListener++) {
-				receivedFromBotMessages.add(listeners.get(numberOfListener).onMessage(message, this));
+				var messageFromBot = listeners.get(numberOfListener).onMessage(message, this);
+				if (messageFromBot != null) {
+					receivedFromBotMessages.add(message);
+				}
 			}
 	}
 
