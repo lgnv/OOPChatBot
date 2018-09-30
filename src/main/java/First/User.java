@@ -40,7 +40,7 @@ public class User {
 			for (var numberOfListener = 0; numberOfListener < listenersCount; numberOfListener++) {
 				var messageFromBot = listeners.get(numberOfListener).onMessage(message, this);
 				if (messageFromBot != null) {
-					receivedFromBotMessages.add(message);
+					receivedFromBotMessages.add(messageFromBot);
 				}
 			}
 	}
