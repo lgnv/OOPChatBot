@@ -19,30 +19,32 @@ public class Bot implements MessageListener {
 	}
 	
 	private String getGames() {
-		var listGames = "Список игр:\n";
+		var builder = new StringBuilder("Список игр:\n");
 		for (var game : games.keySet()) {
-			listGames += game + '\n';
+			builder.append(game);
+			builder.append('\n');
 		}
-		return listGames;
+		return builder.toString();
 	}
 
 	@Override
 	public String onMessage(String message, User currentUser) {
+	    var lowerMessage = message.toLowerCase();
 		if (currentUser.getIsPlaying()){
 			return null;
 		}
-		if (message.equalsIgnoreCase("игры")) {
+		if (lowerMessage.equals("игры")) {
 			return getGames();
 		}
-		if (games.keySet().contains(message.toLowerCase())) {
+		if (games.keySet().contains(lowerMessage)) {
 			currentUser.changeIsPlaying();
-			return games.get(message).apply(currentUser);
+			return games.get(lowerMessage).apply(currentUser);
 			
 		}
-		if (message.equalsIgnoreCase("help")) {
+		if (lowerMessage.equals("help")) {
 			return help;
 		}
-		if (message.equalsIgnoreCase("кек")) {
+		if (lowerMessage.equals("кек")) {
 			return joker.getJoke();
 		}
 		return null;
