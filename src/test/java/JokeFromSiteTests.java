@@ -38,6 +38,12 @@ public class JokeFromSiteTests {
         assertEquals("На сегодня шутки закончились, прости", joker.getJoke());
     }
 
+    @Test
+    void testWrongSource(){
+        var joker = new JokeFromSite("foobar");
+        assertEquals(joker.getJoke(), "На сегодня шутки закончились, прости");
+    }
+
     private JokeDownloader getJokerForTestsTimer(long passedTime){
         var joker = new JokeFromSite("https://www.anekdot.ru/last/good/");
         long oldTimer;
