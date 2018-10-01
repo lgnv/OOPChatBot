@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import First.Hangman;
 import First.User;
 
+import java.util.ArrayList;
+
 class HangmanTests {
 	
 	@Test
@@ -12,11 +14,11 @@ class HangmanTests {
 		var hangman = getHangman();
 		var user = new User(0);
 		hangman.onMessage("л", user);
-		assertTrue(hangman.getHP() == 6);
-		assertTrue(hangman.getPositionsOfGuessed().size() == 1);
-		assertTrue(hangman.getPositionsOfGuessed().get(0) == 1);
-		assertTrue(hangman.getUsedLetters().size() == 1);
-		assertTrue(hangman.getUsedLetters().get(0) == 'л');
+		assertEquals(hangman.getHP(), 6);
+		assertEquals(hangman.getPositionsOfGuessed().size(), 1);
+		assertEquals((int)hangman.getPositionsOfGuessed().get(0), 1);
+		assertEquals(hangman.getUsedLetters().size(), 1);
+		assertEquals((char)hangman.getUsedLetters().get(0), 'л');
 	}
 	
 	@Test
@@ -24,22 +26,22 @@ class HangmanTests {
 		var hangman = getHangman();
 		var user = new User(0);
 		hangman.onMessage("а", user);
-		assertTrue(hangman.getHP() == 5);
-		assertTrue(hangman.getPositionsOfGuessed().size() == 0);
-		assertTrue(hangman.getUsedLetters().size() == 1);
-		assertTrue(hangman.getUsedLetters().get(0) == 'а');
+		assertEquals(hangman.getHP(), 5);
+		assertEquals(hangman.getPositionsOfGuessed().size(), 0);
+		assertEquals(hangman.getUsedLetters().size(), 1);
+		assertEquals((char)hangman.getUsedLetters().get(0),'а');
 	}
 	
 	@Test
 	void testLetterInWordTwice() {
 		var hangman = getHangman();
 		hangman.onMessage("о", null);
-		assertTrue(hangman.getHP() == 6);
-		assertTrue(hangman.getPositionsOfGuessed().size() == 2);
-		assertTrue(hangman.getPositionsOfGuessed().get(0) == 2);
-		assertTrue(hangman.getPositionsOfGuessed().get(1) == 4);
-		assertTrue(hangman.getUsedLetters().size() == 1);
-		assertTrue(hangman.getUsedLetters().get(0) == 'о');
+		assertEquals(hangman.getHP(), 6);
+		assertEquals(hangman.getPositionsOfGuessed().size(), 2);
+		assertEquals((int)hangman.getPositionsOfGuessed().get(0), 2);
+		assertEquals((int)hangman.getPositionsOfGuessed().get(1), 4);
+		assertEquals(hangman.getUsedLetters().size(), 1);
+		assertEquals((int)hangman.getUsedLetters().get(0), 'о');
 	}
 	
 	@Test
@@ -47,12 +49,12 @@ class HangmanTests {
 		var hangman = getHangman();
 		var user = new User(0);
 		hangman.onMessage("а", user);
-		assertTrue(hangman.getHP() == 5);
-		assertTrue(hangman.getPositionsOfGuessed().size() == 0);
-		assertTrue(hangman.getUsedLetters().size() == 1);
-		assertTrue(hangman.getUsedLetters().get(0) == 'а');
+		assertEquals(hangman.getHP(), 5);
+		assertEquals(hangman.getPositionsOfGuessed().size(), 0);
+		assertEquals(hangman.getUsedLetters().size(), 1);
+		assertEquals((char)hangman.getUsedLetters().get(0), 'а');
 		hangman.onMessage("а", user);
-		assertTrue(hangman.getHP() == 5);
+		assertEquals(hangman.getHP(), 5);
 	}
 	
 	@Test
@@ -73,8 +75,8 @@ class HangmanTests {
 		var hangman = getHangman();
 		var user = new User(0);
 		hangman.onMessage("о", user);
-		assertTrue(hangman.getPositionsOfGuessed().size() == 2);
-		assertTrue(hangman.getUsedLetters().size() == 1);
+		assertEquals(hangman.getPositionsOfGuessed().size(), 2);
+		assertEquals(hangman.getUsedLetters().size(), 1);
 		hangman.onMessage("q", user);
 		hangman.onMessage("t", user);
 		hangman.onMessage("w", user);
@@ -83,10 +85,22 @@ class HangmanTests {
 		hangman.onMessage("f", user);
 		assertTrue(hangman.getGameIsOver());
 		hangman.onMessage("да", user);
-		assertTrue(hangman.getPositionsOfGuessed().size() == 0);
-		assertTrue(hangman.getUsedLetters().size() == 0);
+		assertEquals(hangman.getPositionsOfGuessed().size(), 0);
+		assertEquals(hangman.getUsedLetters().size(), 0);
 	}
-	
+
+	@Test
+	void testFileExist() {
+		var h = new Hangman();
+		assertNotEquals(0, h.getWordsFromFile("top100.txt").size());
+	}
+
+	@Test
+	void testFileNotExist(){
+		var h = new Hangman();
+		assertEquals(0, h.getWordsFromFile("foobar").size());
+	}
+
 	private Hangman getHangman() {
 		var h = new Hangman();
 		try {

@@ -28,13 +28,12 @@ public class JokeFromSite implements JokeDownloader{
 
 	public LinkedList<String> getJokesList(String source) {
 		timer = new Date().getTime();
-		String content = "";
 		try {
-			content = getContentOfHTTPPage(source);
+			var content = getContentOfHTTPPage(source);
+			return getJokesFromHTML(content);
 		} catch (Exception e) {
-			e.printStackTrace();
+			return new LinkedList<>();
 		}
-		return getJokesFromHTML(content);
 	}
 
 	private LinkedList<String> getJokesFromHTML(String content) {

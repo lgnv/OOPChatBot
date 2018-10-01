@@ -33,6 +33,12 @@ public class JokeFromFileTests {
         assertEquals("На сегодня шутки закончились, прости", getLastJoke(1000000));
     }
 
+    @Test
+    void testWrongSource(){
+        var joker = new JokeFromFile("foobar");
+        assertEquals("На сегодня шутки закончились, прости", joker.getJoke());
+    }
+
     String getLastJoke(int count) {
         var joker = new JokeFromFile("top100.txt");
         IntStream.range(0, count - 1).forEach(i -> joker.getJoke());

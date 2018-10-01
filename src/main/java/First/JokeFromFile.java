@@ -35,10 +35,10 @@ public class JokeFromFile implements JokeDownloader{
 		    		countEmptyLines = 0;
 		    	}
 		    }
+			return jokes;
 		} catch (IOException e) {
-			e.printStackTrace();
+			return new LinkedList<>();
 		}
-		return jokes;
 	}
 
 	public String getJoke() {

@@ -1,7 +1,6 @@
 package First;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -165,17 +164,15 @@ public class Hangman implements MessageListener, Game {
 		return acceptTheOption(firstSymbol);
 	}
 	
-	private ArrayList<String> getWordsFromFile(String filename) {
+	public ArrayList<String> getWordsFromFile(String filename) {
 		var words = new ArrayList<String>();
 		try(var br = new BufferedReader(new FileReader(filename))){
 			String line;
 		    while((line=br.readLine())!=null){
 		        words.add(line);
 		    }
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
-			e.printStackTrace();
+			return new ArrayList<>();
 		}
 		return words;
 	}
