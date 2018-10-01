@@ -149,6 +149,9 @@ public class Hangman implements MessageListener, Game {
 		if (message.equalsIgnoreCase("выйти")){
 			return finishGame(currentUser);
 		}
+		if (message.equalsIgnoreCase("правила")) {
+			return rules;
+		}
 		if (getGameIsOver()) {
 			if (message.equalsIgnoreCase("да")) {
 				return restartGame();

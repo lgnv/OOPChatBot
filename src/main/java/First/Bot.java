@@ -41,7 +41,7 @@ public class Bot implements MessageListener {
 			return games.get(lowerMessage).apply(currentUser);
 			
 		}
-		if (lowerMessage.equals("help")) {
+		if (lowerMessage.equals("помощь")) {
 			return help;
 		}
 		if (lowerMessage.equals("кек")) {

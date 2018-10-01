@@ -8,6 +8,9 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
+
+import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Pattern;
 import java.util.ArrayList;
 
@@ -47,20 +50,38 @@ public class TelegramBot extends TelegramLongPollingBot {
 		}
 	}
 
-	private void setButtons(SendMessage sendMessage) {
+	private void setStandardReplyKeyboard(SendMessage sendMessage) {
+		ReplyKeyboardMarkup replyKeyboardMarkup = getReplyKeyboardMarkup(sendMessage);
+		var keyboard = new ArrayList<KeyboardRow>();
+		var keyboardFirstRow = getKeyboardRow(Arrays.asList("кек", "игры"));
+		var keyboardSecondRow = getKeyboardRow(Arrays.asList("помощь"));
+		keyboard.add(keyboardFirstRow);
+		keyboard.add(keyboardSecondRow);
+		replyKeyboardMarkup.setKeyboard(keyboard);
+	}
+
+	private KeyboardRow getKeyboardRow(List<String> buttonTexts) {
+		var keyboardRow = new KeyboardRow();
+		for (var text : buttonTexts) {
+			keyboardRow.add(text);
+		}
+		return keyboardRow;
+	}
+
+	private ReplyKeyboardMarkup getReplyKeyboardMarkup(SendMessage sendMessage) {
 		var replyKeyboardMarkup = new ReplyKeyboardMarkup();
 		sendMessage.setReplyMarkup(replyKeyboardMarkup);
 		replyKeyboardMarkup.setSelective(true);
 		replyKeyboardMarkup.setResizeKeyboard(true);
 		replyKeyboardMarkup.setOneTimeKeyboard(false);
+		return replyKeyboardMarkup;
+	}
+
+	private void setGameReplyKeyboard(SendMessage sendMessage) {
+		var replyKeyboardMarkup = getReplyKeyboardMarkup(sendMessage);
 		var keyboard = new ArrayList<KeyboardRow>();
-		var keyboardFirstRow = new KeyboardRow();
-		keyboardFirstRow.add("кек");
-		keyboardFirstRow.add("игры");
-		var keyboardSecondRow = new KeyboardRow();
-		keyboardSecondRow.add("help");
+		var keyboardFirstRow = getKeyboardRow(Arrays.asList("правила", "выйти"));
 		keyboard.add(keyboardFirstRow);
-		keyboard.add(keyboardSecondRow);
 		replyKeyboardMarkup.setKeyboard(keyboard);
 	}
 
@@ -75,7 +96,12 @@ public class TelegramBot extends TelegramLongPollingBot {
 			var botMessage = new SendMessage();
 			botMessage.setChatId(userId);
 			botMessage.setText(fixText(textFromBot));
-			setButtons(botMessage);
+			if (currentUser.getIsPlaying()) {
+				setGameReplyKeyboard(botMessage);
+			}
+			else {
+				setStandardReplyKeyboard(botMessage);
+			}
 			try {
 				execute(botMessage);
 			} catch (TelegramApiException e1) {
