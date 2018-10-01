@@ -94,9 +94,6 @@ public class TelegramBot extends TelegramLongPollingBot {
 
 	private void replyToUser(long userId, User currentUser) {
 		for (var textFromBot : currentUser.getReceivedFromBotMessages()) {
-			if (textFromBot == null) {
-				continue;
-			}
 			var botMessage = new SendMessage();
 			botMessage.setChatId(userId);
 			botMessage.setText(fixText(textFromBot));

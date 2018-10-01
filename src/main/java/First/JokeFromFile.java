@@ -35,8 +35,6 @@ public class JokeFromFile implements JokeDownloader{
 		    		countEmptyLines = 0;
 		    	}
 		    }
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

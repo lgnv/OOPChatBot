@@ -53,15 +53,12 @@ public class JokeFromSite implements JokeDownloader{
         var builder = new StringBuilder();
         var pageURL = new URL(pageAddress);
         var connection = pageURL.openConnection();
-        var reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-        try {
-            String inputLine;
-            while ((inputLine = reader.readLine()) != null) {
-                builder.append(inputLine);
-            }
-        } finally {
-            reader.close();
-        }
+        try(var reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+			String inputLine;
+			while ((inputLine = reader.readLine()) != null) {
+				builder.append(inputLine);
+			}
+		}
         return builder.toString();
     }
 
