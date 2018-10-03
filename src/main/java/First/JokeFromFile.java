@@ -1,21 +1,16 @@
 package First;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.LinkedList;
 
 public class JokeFromFile implements JokeDownloader{
-	private LinkedList<String> jokes;
+	private final String source = "top100.txt";
 
-	public JokeFromFile(String source) {
-		jokes = getJokesList(source);
-	}
-
-	public LinkedList<String> getJokesList(String filename) {
+	public LinkedList<String> downloadJokesList() {
 		var jokes = new LinkedList<String>();
-		try(var br = new BufferedReader(new FileReader(filename))){
+		try(var br = new BufferedReader(new FileReader(source))){
 			var builder = new StringBuilder();
 			var countEmptyLines = 0;
 			String line;
@@ -39,10 +34,5 @@ public class JokeFromFile implements JokeDownloader{
 		} catch (IOException e) {
 			return new LinkedList<>();
 		}
-	}
-
-	public String getJoke() {
-		var joke = jokes.pollLast();
-		return joke == null ? "На сегодня шутки закончились, прости" : joke;
 	}
 }

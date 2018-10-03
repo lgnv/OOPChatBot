@@ -1,4 +1,6 @@
 import static org.junit.jupiter.api.Assertions.*;
+
+import First.JokeFilter;
 import First.JokeFromFile;
 import org.junit.jupiter.api.Test;
 
@@ -9,8 +11,9 @@ public class JokeFromFileTests {
 
     @Test
     void testGetOneJoke(){
-        var joker = new JokeFromFile("top100.txt");
-        assertNotEquals("На сегодня шутки закончились, прости", joker.getJoke());
+        var joker = new JokeFromFile();
+        var jokeFilter = new JokeFilter(joker);
+        assertNotEquals("На сегодня шутки закончились, прости", jokeFilter.getJoke());
     }
 
     @Test
@@ -33,15 +36,10 @@ public class JokeFromFileTests {
         assertEquals("На сегодня шутки закончились, прости", getLastJoke(1000000));
     }
 
-    @Test
-    void testWrongSource(){
-        var joker = new JokeFromFile("foobar");
-        assertEquals("На сегодня шутки закончились, прости", joker.getJoke());
-    }
-
     String getLastJoke(int count) {
-        var joker = new JokeFromFile("top100.txt");
-        IntStream.range(0, count - 1).forEach(i -> joker.getJoke());
-        return joker.getJoke();
+        var joker = new JokeFromFile();
+        var jokeFilter = new JokeFilter(joker);
+        IntStream.range(0, count - 1).forEach(i -> jokeFilter.getJoke());
+        return jokeFilter.getJoke();
     }
 }

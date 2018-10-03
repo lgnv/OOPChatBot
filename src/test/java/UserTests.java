@@ -2,21 +2,16 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.HashMap;
 import java.util.function.Function;
 
+import First.*;
 import org.junit.jupiter.api.Test;
-
-import First.Bot;
-import First.Game;
-import First.Hangman;
-import First.JokeDownloader;
-import First.JokeFromFile;
-import First.User;
 
 class UserTests {
 	private HashMap<String, Function<User, String>> games = new HashMap<>() {{ put("виселица", (User user)-> Hangman.play(user)); }};
-	private JokeDownloader jokerFile = new JokeFromFile("top100.txt");
+	private JokeDownloader jokerFile = new JokeFromFile();
+	private JokeFilter jokeFilter = new JokeFilter(jokerFile);
 	
 	private Bot getBot() {
-		return new Bot(games, jokerFile);
+		return new Bot(games, jokeFilter);
 	}
 	
 	@Test

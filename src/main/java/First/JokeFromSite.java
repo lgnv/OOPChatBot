@@ -6,28 +6,11 @@ import java.net.URL;
 import java.util.LinkedList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.Date;
 
-public class JokeFromSite implements JokeDownloader{
-	private long timer;
-	private LinkedList<String> jokes;
-	private String source;
+public class JokeFromSite implements JokeDownloader {
+	private final String source = "https://www.anekdot.ru/last/good/";
 
-	public JokeFromSite(String source) {
-		jokes = getJokesList(source);
-		this.source = source;
-	}
-
-	public String getJoke() {
-		if (jokes.size() == 0 && getMillisecondToHours(timer, new Date().getTime()) >= 24){
-			jokes = getJokesList(source);
-		}
-		var joke = jokes.pollLast();
-		return joke == null ? "На сегодня шутки закончились, прости" : joke;
-	}
-
-	public LinkedList<String> getJokesList(String source) {
-		timer = new Date().getTime();
+	public LinkedList<String> downloadJokesList() {
 		try {
 			var content = getContentOfHTTPPage(source);
 			return getJokesFromHTML(content);
@@ -60,8 +43,4 @@ public class JokeFromSite implements JokeDownloader{
 		}
         return builder.toString();
     }
-
-    public static int getMillisecondToHours(long oldTime, long newTime){
-		return (int)(Math.abs(newTime - oldTime)) / (1000 * 60 * 60);
-	}
 }
