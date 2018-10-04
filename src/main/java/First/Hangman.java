@@ -6,14 +6,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Hangman implements MessageListener, Game {
+public class Hangman implements MessageListener, Game, Feature {
 	private final String rules = "Правила игры \"Виселица\":\n Я загадал для тебя слово. У тебя будет 6 попыток "
 			+ "отгадать его. Да прибудет с тобой эрудиция. Игра началась.\n В любой момент ты можешь выйти из игры по команде \"выйти\"";
 	private String word;
 	private final String offerToPlayAgain = "Хочешь сыграть снова? Да\\Нет?";
-	private ArrayList<Integer> positionsOfGuessed = new ArrayList<Integer>();
-	private ArrayList<Character> usedLetters = new ArrayList<Character>();
-	private ArrayList<String> words = new ArrayList<String>();
+	private ArrayList<Integer> positionsOfGuessed = new ArrayList<>();
+	private ArrayList<Character> usedLetters = new ArrayList<>();
+	private ArrayList<String> words;
 	private int hp = 6;
 	private Random random = new Random();
 	
@@ -22,14 +22,19 @@ public class Hangman implements MessageListener, Game {
 		word = getRandomWord();
 	}
 	
-	public String getName(){
-		return "Виселица";
+	public String getCommand(){
+		return "виселица";
+	}
+
+	public String getNameFeature(){
+		return "Игра 'Виселица'";
 	}
 	
-	public static String play(User user) {
-		var hangman = new Hangman();
-		user.addListener(hangman);
-		return hangman.start();
+	public String use(User user) {
+		restartGame();
+		user.changeIsPlaying();
+		user.addListener(this);
+		return start();
 	}
 	
 	public int getHP() {
@@ -83,12 +88,9 @@ public class Hangman implements MessageListener, Game {
 	private String getStatusWord() {
 		var statusWord = "";
 		for (var position = 0; position < word.length(); position++) {
-			if(positionsOfGuessed.contains(position)) {
-				statusWord += word.charAt(position) + " ";
-			}
-			else {
-				statusWord += "_ ";
-			}
+			statusWord += positionsOfGuessed.contains(position)
+					? word.charAt(position) + " "
+					: "_ ";
 		}
 		return statusWord;
 	}
@@ -143,7 +145,6 @@ public class Hangman implements MessageListener, Game {
 		return words.get(index);
 	}
 
-	@Override
 	public String onMessage(String message, User currentUser) {
 		var firstSymbol = message.length() > 0 ? message.toLowerCase().charAt(0) : ' ';
 		if (message.equalsIgnoreCase("выйти")){

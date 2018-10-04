@@ -1,11 +1,14 @@
 package First;
 
-import java.util.HashMap;
-import java.util.function.Function;
+import java.util.ArrayList;
 
 public class GeneratorBot {
+
 	public static Bot getBot(JokeFilter jokeFilter) {
-		var games = new HashMap<String, Function<User, String>>() {{ put("виселица", (User user)-> Hangman.play(user)); }};
-		return new Bot(games, jokeFilter);
+		var a = new ArrayList<Feature>();
+		a.add(jokeFilter);
+		a.add(new Hangman());
+		var menu = new Menu(a);
+		return new Bot(menu);
 	}
 }

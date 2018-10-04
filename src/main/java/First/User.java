@@ -6,9 +6,9 @@ import java.util.List;
 public class User {
 	
 	private long id;
-	private List<MessageListener> listeners = new ArrayList<MessageListener>();
-	private List<String> receivedFromBotMessages = new ArrayList<String>();
-	private ArrayList<Integer> hashesReceivedJokes = new ArrayList<Integer>();
+	private List<MessageListener> listeners = new ArrayList<>();
+	private List<String> receivedFromBotMessages = new ArrayList<>();
+	private ArrayList<Integer> hashesReceivedJokes = new ArrayList<>();
 	private boolean isPlaying = false;
 
 	public boolean getIsPlaying(){
@@ -27,7 +27,9 @@ public class User {
 	}
 	
 	public void addListener(MessageListener listenerToAdd) {
-		listeners.add(listenerToAdd);
+		if (!listeners.contains(listenerToAdd)) {
+			listeners.add(listenerToAdd);
+		}
 	}
 	
 	public void removeListener(MessageListener listenerToRemove) {
