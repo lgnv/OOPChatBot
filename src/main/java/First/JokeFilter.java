@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 
-public class JokeFilter {
+public class JokeFilter implements Feature {
     private LinkedList<String> jokes;
     private JokeDownloader downloader;
     private TimeChecker timeChecker;
@@ -14,6 +14,18 @@ public class JokeFilter {
         this.downloader = downloader;
         jokes = downloader.downloadJokesList();
         timeChecker = new TimeChecker();
+    }
+
+    public String getCommand(){
+        return "кек";
+    }
+
+    public String getNameFeature(){
+        return "Получить анекдот";
+    }
+
+    public String use(User user){
+        return getJoke();
     }
 
     private boolean isNewJoke(String joke) {

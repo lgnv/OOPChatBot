@@ -2,8 +2,6 @@ package First;
 
 import java.util.Scanner;
 
-import java.util.HashMap;
-
 public class ConsoleVersion {
 	private static Scanner scanner = new Scanner(System.in);
 	private static User currentUser = new User(0);
