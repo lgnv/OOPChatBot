@@ -7,11 +7,11 @@ public class Bot implements MessageListener {
 	private static final String help = "Я развлекательный бот. Чтобы получить список игр, в которые я умею играть, напиши \"игры\".\n"
 			+ "Для начала игры напиши её название.\n Чтобы получить свежую шутку напиши \"кек\"";
 	private HashMap<String, Function<User, String>> games;
-	private JokeDownloader joker;
+	private JokeFilter jokeFilter;
 	
-	public Bot(HashMap<String, Function<User, String>> games, JokeDownloader joker) {
+	public Bot(HashMap<String, Function<User, String>> games, JokeFilter jokeFilter) {
 		this.games = games;
-		this.joker = joker;
+		this.jokeFilter = jokeFilter;
 	}
 	
 	public static String start() {
@@ -45,7 +45,7 @@ public class Bot implements MessageListener {
 			return help;
 		}
 		if (lowerMessage.equals("кек")) {
-			return joker.getJoke();
+			return jokeFilter.getJoke();
 		}
 		return null;
 	}
