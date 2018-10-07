@@ -101,6 +101,27 @@ class HangmanTests {
 		assertEquals(0, h.getWordsFromFile("foobar").size());
 	}
 
+	@Test
+	void testGetGameStatus(){
+		var h = getHangman();
+		var user = new User(0);
+		var result = h.onMessage("f", user);
+		assertTrue(result.contains("Осталось попыток: 5"));
+		assertTrue(result.contains("Слово: _ _ _ _ _"));
+		assertTrue(result.contains("Использованные буквы: f, "));
+	}
+
+	@Test
+	void testWin(){
+		var h = getHangman();
+		var user = new User(0);
+		h.onMessage("с", user);
+		h.onMessage("л", user);
+		h.onMessage("о", user);
+		var result = h.onMessage("в", user);
+		assertTrue(result.contains("Урааа, ты отгадал слово!!! "));
+	}
+
 	private Hangman getHangman() {
 		var h = new Hangman();
 		try {

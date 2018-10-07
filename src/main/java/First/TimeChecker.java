@@ -17,7 +17,7 @@ public class TimeChecker {
         var needToUpdate = getMillisecondToHours(downloadingTime, new Date().getTime()) >= 24;
         if (needToUpdate) {
             updateDownloadingTime();
-        };
+        }
         return needToUpdate;
     }
 

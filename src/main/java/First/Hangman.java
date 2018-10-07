@@ -96,11 +96,12 @@ public class Hangman implements MessageListener, Game, Feature {
 	}
 	
 	private String getStringUsedLetters() {
-		var result = "Использованные буквы: ";
+		var result = new StringBuilder("Использованные буквы: ");
 		for(var letter : usedLetters) {
-			result += letter + ", ";
+			result.append(letter);
+			result.append(", ");
 		}
-		return result;
+		return result.toString();
 	}
 	
 	private String getGameStatus() {

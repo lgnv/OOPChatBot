@@ -1,4 +1,4 @@
-/*import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
 import java.util.HashMap;
 import java.util.function.Function;
 
@@ -6,12 +6,11 @@ import First.*;
 import org.junit.jupiter.api.Test;
 
 class BotTests {
-	private HashMap<String, Function<User, String>> games = new HashMap<>() {{ put("виселица", (User user)-> Hangman.play(user)); }};
 	private JokeDownloader jokerFile = new JokeFromFile();
 	private JokeFilter jokeFilter = new JokeFilter(jokerFile);
 	
 	private Bot getBot() {
-		return new Bot(games, jokeFilter);
+		return GeneratorBot.getBot(jokeFilter);
 	}
 	
 	@Test
@@ -37,9 +36,8 @@ class BotTests {
 	 @Test
 	 void testHelp() {
 		 var bot = getBot();
-		 var result = bot.onMessage("help", new User(0));
-		 assertTrue(result.contains("напиши"));
+		 var result = bot.onMessage("помощь", new User(0));
+		 assertTrue(result.contains("Получить"));
 	 }
 
 }
-*/
