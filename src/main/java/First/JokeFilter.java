@@ -2,17 +2,16 @@ package First;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedList;
 
 public class JokeFilter implements Feature {
-    private LinkedList<String> jokes;
+    private HashMap<Integer, String> jokes = new HashMap<>();
     private JokeDownloader downloader;
     private TimeChecker timeChecker;
-    private HashMap<Long, HashSet<Integer>> userHashes = new HashMap<>();
+
 
     public JokeFilter(JokeDownloader downloader) {
         this.downloader = downloader;
-        jokes = downloader.downloadJokesList();
+        updateJokes();
         timeChecker = new TimeChecker();
     }
 
@@ -25,24 +24,31 @@ public class JokeFilter implements Feature {
     }
 
     public String use(User user, String command){
-        return getJoke();
+        return getJoke(user);
     }
 
-    private boolean isNewJoke(String joke) {
-        return true;
-    }
-
-    public String getJoke() {
+    public String getJoke(User user) {
         if (downloader instanceof JokeFromSite && timeChecker.needToUpdate()) {
-            var newJokes = downloader.downloadJokesList();
-            jokes.removeAll(newJokes);
-            jokes.addAll(newJokes);
+            updateJokes();
         }
-        String joke = null;
-        do {
-            joke = jokes.pollLast();
+        var hashesJokesUserDontKnow = new HashSet<>(jokes.keySet());
+        hashesJokesUserDontKnow.removeAll(user.getHashesReceivedJokes());
+        Integer newHash = null;
+        for (var h: hashesJokesUserDontKnow) {
+            newHash = h;
+            break;
         }
-        while (!isNewJoke(joke));
-        return joke == null ? "На сегодня шутки закончились, прости" : joke;
+        if (newHash == null){
+            return "На сегодня шутки закончились, прости";
+        }
+        user.learnedJoke(jokes.get(newHash));
+        return jokes.get(newHash);
+    }
+
+    private void updateJokes(){
+        var newJokes = downloader.downloadJokesList();
+        for (var joke: newJokes) {
+            jokes.put(joke.hashCode(), joke);
+        }
     }
 }
