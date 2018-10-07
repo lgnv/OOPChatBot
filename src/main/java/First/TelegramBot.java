@@ -38,6 +38,13 @@ public class TelegramBot extends TelegramLongPollingBot {
 			link.append("BgoTNMRhKC4pMOOlV-Yg");
 			sendGif(userId, link.toString());
 		}
+		else if (textFromUser.equalsIgnoreCase("кусь")) {
+			var link = new StringBuilder("https://psv4.userapi.com/c848024/u5057566/");
+			link.append("docs/d13/214f83b16c21/catism.gif?extra=JvM8DUxE1LtdaSP7hMcnE");
+			link.append("CEr90TKqb1BSB2yKmaHgXi3Ir365CV02PSeK4C1Nhcnb5U6OsNd5XS9gOnwaS");
+			link.append("PubVwYUuuMSqkBcTjJDluekqxS5oLnNRvneU2zPbOVN9GaxJKU11A8CT6oWXNbnwBSMVMS");
+			sendGif(userId, link.toString());
+		}
 		else if (textFromUser.equalsIgnoreCase("/start")) {
 			try {
 				execute(new SendMessage(userId, Bot.start()));
@@ -53,7 +60,7 @@ public class TelegramBot extends TelegramLongPollingBot {
 	private void setStandardReplyKeyboard(SendMessage sendMessage) {
 		ReplyKeyboardMarkup replyKeyboardMarkup = getReplyKeyboardMarkup(sendMessage);
 		var keyboard = new ArrayList<KeyboardRow>();
-		var keyboardFirstRow = getKeyboardRow(Arrays.asList("кек", "виселица"));
+		var keyboardFirstRow = getKeyboardRow(Arrays.asList("кек", "игры"));
 		var keyboardSecondRow = getKeyboardRow(Arrays.asList("помощь"));
 		keyboard.add(keyboardFirstRow);
 		keyboard.add(keyboardSecondRow);

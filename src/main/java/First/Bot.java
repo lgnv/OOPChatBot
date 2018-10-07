@@ -15,9 +15,10 @@ public class Bot implements MessageListener {
 	}
 
 	public String onMessage(String message, User currentUser) {
-		if (currentUser.getIsPlaying() || !menu.commandAvailable(message)){
+		var lowerMessage = message.toLowerCase();
+		if (currentUser.getIsPlaying() || !menu.commandAvailable(lowerMessage)){
 			return null;
 		}
-		return menu.useCommand(message, currentUser);
+		return menu.useCommand(lowerMessage, currentUser);
 	}
 }

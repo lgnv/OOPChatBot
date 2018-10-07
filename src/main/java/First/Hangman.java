@@ -26,11 +26,11 @@ public class Hangman implements MessageListener, Game, Feature {
 		return "виселица";
 	}
 
-	public String getNameFeature(){
+	public String getDescription(){
 		return "Игра 'Виселица'";
 	}
 	
-	public String use(User user) {
+	public String use(User user, String command) {
 		restartGame();
 		user.changeIsPlaying();
 		user.addListener(this);

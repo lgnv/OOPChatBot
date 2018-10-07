@@ -20,11 +20,11 @@ public class JokeFilter implements Feature {
         return "кек";
     }
 
-    public String getNameFeature(){
+    public String getDescription(){
         return "Получить анекдот";
     }
 
-    public String use(User user){
+    public String use(User user, String command){
         return getJoke();
     }
 
