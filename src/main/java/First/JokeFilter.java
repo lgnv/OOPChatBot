@@ -41,7 +41,7 @@ public class JokeFilter implements Feature {
         if (newHash == null){
             return "На сегодня шутки закончились, прости";
         }
-        user.learnedJoke(jokes.get(newHash));
+        user.learnJoke(jokes.get(newHash));
         return jokes.get(newHash);
     }
 

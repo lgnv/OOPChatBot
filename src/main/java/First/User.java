@@ -12,7 +12,7 @@ public class User {
 	private HashSet<Integer> hashesReceivedJokes = new HashSet<>();
 	private boolean isPlaying = false;
 
-	public void learnedJoke(String joke){
+	public void learnJoke(String joke){
 		hashesReceivedJokes.add(joke.hashCode());
 	}
 
@@ -27,6 +27,7 @@ public class User {
 	public void changeIsPlaying(){
 		isPlaying = !isPlaying;
 	}
+
 	public User(long id) {
 		this.id = id;
 	}
