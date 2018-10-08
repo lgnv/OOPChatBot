@@ -54,7 +54,7 @@ public class Menu implements Feature {
         return commands.containsKey(command) || command.equalsIgnoreCase("помощь");
     }
 
-    public String useCommand(String command, User user){
+    public String useCommandFromMenu(String command, User user){
         if (command.equalsIgnoreCase("помощь")){
             return getHelp();
         }

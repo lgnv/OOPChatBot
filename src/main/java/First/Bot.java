@@ -19,6 +19,6 @@ public class Bot implements MessageListener {
 		if (currentUser.getIsPlaying() || !menu.commandAvailable(lowerMessage)){
 			return null;
 		}
-		return menu.useCommand(lowerMessage, currentUser);
+		return menu.useCommandFromMenu(lowerMessage, currentUser);
 	}
 }

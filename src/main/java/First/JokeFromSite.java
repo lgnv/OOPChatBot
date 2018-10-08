@@ -21,8 +21,8 @@ public class JokeFromSite implements JokeDownloader {
 
 	private LinkedList<String> getJokesFromHTML(String content) {
 		var jokes = new LinkedList<String>();
-		Pattern pattern = Pattern.compile("\"text\">([^href]*?)</div");
-	    Matcher matcher = pattern.matcher(content);
+		var pattern = Pattern.compile("\"text\">([^href]*?)</div");
+	    var matcher = pattern.matcher(content);
 	    if(matcher.find()) {
 	        do {
 	            jokes.add(matcher.group(1));

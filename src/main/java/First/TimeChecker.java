@@ -9,12 +9,12 @@ public class TimeChecker {
         updateDownloadingTime();
     }
 
-    private static int getMillisecondToHours(long oldTime, long newTime){
+    private int getDifferenceInHours(long oldTime, long newTime){
         return (int)(Math.abs(newTime - oldTime)) / (1000 * 60 * 60);
     }
 
     public boolean needToUpdate() {
-        var needToUpdate = getMillisecondToHours(downloadingTime, new Date().getTime()) >= 24;
+        var needToUpdate = getDifferenceInHours(downloadingTime, new Date().getTime()) >= 24;
         if (needToUpdate) {
             updateDownloadingTime();
         }
