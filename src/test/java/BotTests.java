@@ -6,11 +6,10 @@ import First.*;
 import org.junit.jupiter.api.Test;
 
 class BotTests {
-	private JokeDownloader jokerFile = new JokeFromFile();
-	private JokeFilter jokeFilter = new JokeFilter(jokerFile);
+	private JokeDownloader jokeDownloader = new JokeFromFile("top100.txt");
 	
 	private Bot getBot() {
-		return GeneratorBot.getBot(jokeFilter);
+		return GeneratorBot.getBot(jokeDownloader);
 	}
 	
 	@Test

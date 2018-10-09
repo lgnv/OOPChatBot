@@ -36,7 +36,7 @@ class TimeCheckerTests {
         var timeChecker = new TimeChecker();
         long oldTimer;
         try {
-            var fieldTimer = timeChecker.getClass().getDeclaredField("downloadingTime");
+            var fieldTimer = timeChecker.getClass().getDeclaredField("initialTime");
             fieldTimer.setAccessible(true);
             oldTimer = (long) fieldTimer.get(timeChecker);
             fieldTimer.set(timeChecker, oldTimer - passedTime);

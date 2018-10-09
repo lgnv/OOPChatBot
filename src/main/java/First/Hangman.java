@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Hangman implements MessageListener, Game, Feature {
+public class Hangman implements MessageListener, Game {
 	private final String rules = "Правила игры \"Виселица\":\n Я загадал для тебя слово. У тебя будет 6 попыток "
 			+ "отгадать его. Да прибудет с тобой эрудиция. Игра началась.\n В любой момент ты можешь выйти из игры по команде \"выйти\"";
 	private String word;
@@ -20,21 +20,6 @@ public class Hangman implements MessageListener, Game, Feature {
 	public Hangman() {
 		words = getWordsFromFile("words.txt");
 		word = getRandomWord();
-	}
-	
-	public String getCommand(){
-		return "виселица";
-	}
-
-	public String getDescription(){
-		return "Игра 'Виселица'";
-	}
-	
-	public String use(User user, String command) {
-		restartGame();
-		user.changeIsPlaying();
-		user.addListener(this);
-		return start();
 	}
 	
 	public int getHP() {
@@ -127,7 +112,7 @@ public class Hangman implements MessageListener, Game, Feature {
 		}
 	}
 	
-	private String restartGame() {
+	public String restartGame() {
 		positionsOfGuessed.clear();
 		usedLetters.clear();
 		hp = 6;

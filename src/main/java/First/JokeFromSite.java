@@ -4,11 +4,14 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.LinkedList;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class JokeFromSite implements JokeDownloader {
-	private final String source = "https://www.anekdot.ru/last/good/";
+	private final String source;
+
+	public JokeFromSite(String source) {
+		this.source = source;
+	}
 
 	public LinkedList<String> downloadJokesList() {
 		try {

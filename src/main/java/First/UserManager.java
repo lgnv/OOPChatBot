@@ -4,12 +4,12 @@ import java.util.HashMap;
 
 public class UserManager {
 	private HashMap<Long, User> users = new HashMap<Long, User>();
-	private JokeFilter jokeFilter = new JokeFilter(new JokeFromSite());
+	private JokeDownloader jokeDownloader = new JokeFromSite("https://www.anekdot.ru/last/good/");
 	
 	private void updateUsers(Long userId) {
 		if (!users.containsKey(userId)){
 			var user = new User(userId);
-			user.addListener(GeneratorBot.getBot(jokeFilter));
+			user.addListener(GeneratorBot.getBot(jokeDownloader));
 			users.put(userId, user);
 		}
 	}

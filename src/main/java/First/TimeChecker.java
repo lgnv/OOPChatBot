@@ -3,10 +3,10 @@ package First;
 import java.util.Date;
 
 public class TimeChecker {
-    private long downloadingTime;
+    private long initialTime;
 
     public TimeChecker() {
-        updateDownloadingTime();
+        updateInitialTime();
     }
 
     private int getDifferenceInHours(long oldTime, long newTime){
@@ -14,14 +14,14 @@ public class TimeChecker {
     }
 
     public boolean needToUpdate() {
-        var needToUpdate = getDifferenceInHours(downloadingTime, new Date().getTime()) >= 24;
+        var needToUpdate = getDifferenceInHours(initialTime, new Date().getTime()) >= 24;
         if (needToUpdate) {
-            updateDownloadingTime();
+            updateInitialTime();
         }
         return needToUpdate;
     }
 
-    private void updateDownloadingTime() {
-        downloadingTime = new Date().getTime();
+    private void updateInitialTime() {
+        initialTime = new Date().getTime();
     }
 }

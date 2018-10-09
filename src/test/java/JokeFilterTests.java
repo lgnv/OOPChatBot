@@ -34,7 +34,7 @@ class JokeFilterTests {
 
     private String getLastJoke(int count) {
         var user = new User(0);
-        var jokeDownloader = new JokeFromFile();
+        var jokeDownloader = new JokeFromFile("top100.txt");
         var jokeFilter = new JokeFilter(jokeDownloader);
         IntStream.range(0, count - 1).forEach(i -> jokeFilter.getJoke(user));
         return jokeFilter.getJoke(user);
