@@ -6,7 +6,11 @@ import java.io.IOException;
 import java.util.LinkedList;
 
 public class JokeFromFile implements JokeDownloader{
-	private final String source = "top100.txt";
+	private final String source;
+
+	public JokeFromFile(String source) {
+		this.source = source;
+	}
 
 	public LinkedList<String> downloadJokesList() {
 		var jokes = new LinkedList<String>();

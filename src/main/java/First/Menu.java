@@ -28,7 +28,9 @@ public class Menu implements Feature {
 
     private void initCommands(ArrayList<Feature> features){
         for (var feature : features) {
-            commands.put(feature.getCommand(),feature);
+            commands.put(feature.getCommand(), feature);
+            if (feature instanceof Menu)
+                commands.putAll(((Menu) feature).commands);
         }
     }
 
@@ -52,7 +54,7 @@ public class Menu implements Feature {
         return commands.containsKey(command) || command.equalsIgnoreCase("помощь");
     }
 
-    public String useCommand(String command, User user){
+    public String useCommandFromMenu(String command, User user){
         if (command.equalsIgnoreCase("помощь")){
             return getHelp();
         }

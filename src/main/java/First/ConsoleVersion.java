@@ -7,8 +7,7 @@ public class ConsoleVersion {
 	private static User currentUser = new User(0);
 	
 	public static void main(String[] args) {
-		var jokeFilter = new JokeFilter(new JokeFromFile());
-		var bot = GeneratorBot.getBot(jokeFilter);
+		var bot = GeneratorBot.getBot(new JokeFromFile("top100.txt"));
 		System.out.println(Bot.start());
 		currentUser.addListener(bot);
 		processInput();

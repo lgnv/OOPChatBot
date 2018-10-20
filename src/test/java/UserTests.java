@@ -1,16 +1,13 @@
 import static org.junit.jupiter.api.Assertions.*;
-import java.util.HashMap;
-import java.util.function.Function;
 
 import First.*;
 import org.junit.jupiter.api.Test;
 
 class UserTests {
-	private JokeDownloader jokerFile = new JokeFromFile();
-	private JokeFilter jokeFilter = new JokeFilter(jokerFile);
-	
+	private JokeDownloader jokeDownloader = new JokeFromFile("top100.txt");
+
 	private Bot getBot() {
-		return GeneratorBot.getBot(jokeFilter);
+		return GeneratorBot.getBot(jokeDownloader);
 	}
 	
 	@Test
