@@ -27,6 +27,7 @@ class HangmanTests {
 		var hangman = getHangman();
 		var user = new User(0, correcter);
 		hangman.onMessage("а", user, correcter);
+		//здесь почему то hp остается 6
 		assertEquals(hangman.getHP(), 5);
 		assertEquals(hangman.getPositionsOfGuessed().size(), 0);
 		assertEquals(hangman.getUsedLetters().size(), 1);
