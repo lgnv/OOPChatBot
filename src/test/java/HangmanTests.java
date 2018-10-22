@@ -1,19 +1,20 @@
 import static org.junit.jupiter.api.Assertions.*;
 
+import First.TypoCorrect.LevensteinMetric;
+import First.TypoCorrect.TypoCorrecter;
 import org.junit.jupiter.api.Test;
 
-import First.Hangman;
-import First.User;
-
-import java.util.ArrayList;
+import First.Games.Hangman;
+import First.BotLogic.User;
 
 class HangmanTests {
-	
+    private TypoCorrecter correcter = new TypoCorrecter(new LevensteinMetric(255));
+
 	@Test
 	void testLetterInWord() {
 		var hangman = getHangman();
-		var user = new User(0);
-		hangman.onMessage("л", user);
+		var user = new User(0, correcter);
+		hangman.onMessage("л", user, correcter);
 		assertEquals(hangman.getHP(), 6);
 		assertEquals(hangman.getPositionsOfGuessed().size(), 1);
 		assertEquals((int)hangman.getPositionsOfGuessed().get(0), 1);
@@ -24,8 +25,8 @@ class HangmanTests {
 	@Test
 	void testLetterNotInWord() {
 		var hangman = getHangman();
-		var user = new User(0);
-		hangman.onMessage("а", user);
+		var user = new User(0, correcter);
+		hangman.onMessage("а", user, correcter);
 		assertEquals(hangman.getHP(), 5);
 		assertEquals(hangman.getPositionsOfGuessed().size(), 0);
 		assertEquals(hangman.getUsedLetters().size(), 1);
@@ -35,7 +36,7 @@ class HangmanTests {
 	@Test
 	void testLetterInWordTwice() {
 		var hangman = getHangman();
-		hangman.onMessage("о", null);
+		hangman.onMessage("о", null, correcter);
 		assertEquals(hangman.getHP(), 6);
 		assertEquals(hangman.getPositionsOfGuessed().size(), 2);
 		assertEquals((int)hangman.getPositionsOfGuessed().get(0), 2);
@@ -47,44 +48,44 @@ class HangmanTests {
 	@Test
 	void testLetterWasUsedBefore() {
 		var hangman = getHangman();
-		var user = new User(0);
-		hangman.onMessage("а", user);
+		var user = new User(0, correcter);
+		hangman.onMessage("а", user, correcter);
 		assertEquals(hangman.getHP(), 5);
 		assertEquals(hangman.getPositionsOfGuessed().size(), 0);
 		assertEquals(hangman.getUsedLetters().size(), 1);
 		assertEquals((char)hangman.getUsedLetters().get(0), 'а');
-		hangman.onMessage("а", user);
+		hangman.onMessage("а", user, correcter);
 		assertEquals(hangman.getHP(), 5);
 	}
 	
 	@Test
 	void testGameOver() {
 		var hangman = getHangman();
-		var user = new User(0);
-		hangman.onMessage("а", user);
-		hangman.onMessage("q", user);
-		hangman.onMessage("t", user);
-		hangman.onMessage("w", user);
-		hangman.onMessage("e", user);
-		hangman.onMessage("r", user);
+		var user = new User(0, correcter);
+		hangman.onMessage("а", user, correcter);
+		hangman.onMessage("q", user, correcter);
+		hangman.onMessage("t", user, correcter);
+		hangman.onMessage("w", user, correcter);
+		hangman.onMessage("e", user, correcter);
+		hangman.onMessage("r", user, correcter);
 		assertTrue(hangman.getGameIsOver());
 	}
 	
 	@Test
 	void testRestartGame() {
 		var hangman = getHangman();
-		var user = new User(0);
-		hangman.onMessage("о", user);
+		var user = new User(0, correcter);
+		hangman.onMessage("о", user, correcter);
 		assertEquals(hangman.getPositionsOfGuessed().size(), 2);
 		assertEquals(hangman.getUsedLetters().size(), 1);
-		hangman.onMessage("q", user);
-		hangman.onMessage("t", user);
-		hangman.onMessage("w", user);
-		hangman.onMessage("e", user);
-		hangman.onMessage("r", user);
-		hangman.onMessage("f", user);
+		hangman.onMessage("q", user, correcter);
+		hangman.onMessage("t", user, correcter);
+		hangman.onMessage("w", user, correcter);
+		hangman.onMessage("e", user, correcter);
+		hangman.onMessage("r", user, correcter);
+		hangman.onMessage("f", user, correcter);
 		assertTrue(hangman.getGameIsOver());
-		hangman.onMessage("да", user);
+		hangman.onMessage("да", user, correcter);
 		assertEquals(hangman.getPositionsOfGuessed().size(), 0);
 		assertEquals(hangman.getUsedLetters().size(), 0);
 	}
@@ -104,8 +105,8 @@ class HangmanTests {
 	@Test
 	void testGetGameStatus(){
 		var h = getHangman();
-		var user = new User(0);
-		var result = h.onMessage("f", user);
+		var user = new User(0, correcter);
+		var result = h.onMessage("f", user, correcter);
 		assertTrue(result.contains("Осталось попыток: 5"));
 		assertTrue(result.contains("Слово: _ _ _ _ _"));
 		assertTrue(result.contains("Использованные буквы: f, "));
@@ -114,11 +115,11 @@ class HangmanTests {
 	@Test
 	void testWin(){
 		var h = getHangman();
-		var user = new User(0);
-		h.onMessage("с", user);
-		h.onMessage("л", user);
-		h.onMessage("о", user);
-		var result = h.onMessage("в", user);
+		var user = new User(0, correcter);
+		h.onMessage("с", user, correcter);
+		h.onMessage("л", user, correcter);
+		h.onMessage("о", user, correcter);
+		var result = h.onMessage("в", user, correcter);
 		assertTrue(result.contains("Урааа, ты отгадал слово!!! "));
 	}
 

@@ -1,11 +1,13 @@
-package First;
+package First.Jokes;
+
+import First.Jokes.JokeDownloader;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.LinkedList;
 
-public class JokeFromFile implements JokeDownloader{
+public class JokeFromFile implements JokeDownloader {
 	private final String source;
 
 	public JokeFromFile(String source) {

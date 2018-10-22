@@ -1,4 +1,7 @@
-package First;
+package First.Features;
+
+import First.Games.Hangman;
+import First.BotLogic.User;
 
 public class HangmanFeature implements Feature {
     private Hangman hangman;

@@ -1,5 +1,8 @@
-package First;
+package First.BotLogic;
 
+import First.BotLogic.Bot;
+import First.BotLogic.User;
+import First.BotLogic.UserManager;
 import com.vdurmont.emoji.EmojiParser;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendDocument;

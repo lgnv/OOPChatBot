@@ -1,4 +1,4 @@
-package First;
+package First.Jokes;
 
 import java.util.LinkedList;
 

@@ -1,4 +1,4 @@
-package First;
+package First.Games;
 
 public interface Game {
 	String start();

@@ -1,4 +1,7 @@
-package First;
+package First.Jokes;
+
+import First.Features.Feature;
+import First.BotLogic.User;
 
 public class JokeFeature implements Feature {
     private JokeFilter jokeFilter;

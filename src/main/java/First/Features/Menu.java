@@ -1,7 +1,11 @@
-package First;
+package First.Features;
+
+import First.BotLogic.User;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Menu implements Feature {
     private String help;
@@ -13,6 +17,8 @@ public class Menu implements Feature {
     public Menu(ArrayList<Feature> features){
         init(features);
     }
+
+    public HashSet<String> getCommands() { return new HashSet(commands.keySet()); }
 
     public Menu(ArrayList<Feature> features, String command, String description)
     {

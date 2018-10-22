@@ -1,4 +1,7 @@
-package First;
+package First.Jokes;
+
+import First.BotLogic.TimeChecker;
+import First.BotLogic.User;
 
 import java.util.HashMap;
 import java.util.HashSet;

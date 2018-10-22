@@ -1,4 +1,6 @@
-package First;
+package First.BotLogic;
+
+import First.TypoCorrect.TypoCorrecter;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -10,7 +12,9 @@ public class User {
 	private List<MessageListener> listeners = new ArrayList<>();
 	private List<String> receivedFromBotMessages = new ArrayList<>();
 	private HashSet<Integer> hashesReceivedJokes = new HashSet<>();
+	private TypoCorrecter correcter;
 	private boolean isPlaying = false;
+
 
 	public void learnJoke(String joke){
 		hashesReceivedJokes.add(joke.hashCode());
@@ -28,7 +32,8 @@ public class User {
 		isPlaying = !isPlaying;
 	}
 
-	public User(long id) {
+	public User(long id, TypoCorrecter correcter) {
+		this.correcter = correcter;
 		this.id = id;
 	}
 	
@@ -50,7 +55,7 @@ public class User {
 		receivedFromBotMessages.clear();
 		var listenersCount = listeners.size();
 		for (var numberOfListener = 0; numberOfListener < listenersCount; numberOfListener++) {
-			var messageFromBot = listeners.get(numberOfListener).onMessage(message, this);
+			var messageFromBot = listeners.get(numberOfListener).onMessage(message, this, correcter);
 			if (messageFromBot != null) {
 				receivedFromBotMessages.add(messageFromBot);
 			}

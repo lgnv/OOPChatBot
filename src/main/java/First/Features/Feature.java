@@ -1,4 +1,6 @@
-package First;
+package First.Features;
+
+import First.BotLogic.User;
 
 public interface Feature {
     String getCommand();
