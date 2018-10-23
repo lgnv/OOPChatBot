@@ -1,6 +1,5 @@
 package First.BotLogic;
 
-import First.BotLogic.Bot;
 import First.Features.Feature;
 import First.Features.HangmanFeature;
 import First.Features.Menu;
@@ -8,8 +7,6 @@ import First.Games.Hangman;
 import First.Jokes.JokeDownloader;
 import First.Jokes.JokeFeature;
 import First.Jokes.JokeFilter;
-import First.TypoCorrect.LevensteinMetric;
-import First.TypoCorrect.TypoCorrecter;
 
 import java.util.ArrayList;
 
