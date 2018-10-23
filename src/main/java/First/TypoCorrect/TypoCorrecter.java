@@ -11,7 +11,7 @@ public class TypoCorrecter {
 
     public String CorrectTypo(String word, Set<String> commands) {
         for (var command : commands) {
-            if (metric.getDistance(word, command, -1) <= Math.min(word.length(), 2)) {
+            if (metric.getDistance(word, command, -1) <= 2) {
                 return command;
             }
         }

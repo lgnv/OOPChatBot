@@ -6,7 +6,6 @@ import First.TypoCorrect.TypoCorrecter;
 
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Set;
 
 public class Bot implements MessageListener {
 	private static final String help = "Я развлекательный бот. Чтобы получить список игр, в которые я умею играть, напиши \"игры\".\n"
