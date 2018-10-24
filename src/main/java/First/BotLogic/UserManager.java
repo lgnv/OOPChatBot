@@ -2,7 +2,8 @@ package First.BotLogic;
 
 import First.Jokes.JokeDownloader;
 import First.Jokes.JokeFromSite;
-import First.TypoCorrect.LevensteinMetric;
+import First.TypoCorrect.LevensteinStrategy;
+import First.TypoCorrect.SynonymStrategy;
 import First.TypoCorrect.TypoCorrecter;
 
 import java.util.HashMap;
@@ -10,11 +11,10 @@ import java.util.HashMap;
 public class UserManager {
 	private HashMap<Long, User> users = new HashMap<Long, User>();
 	private JokeDownloader jokeDownloader = new JokeFromSite("https://www.anekdot.ru/last/good/");
-	private TypoCorrecter correcter = new TypoCorrecter(new LevensteinMetric(255));
 
 	private void updateUsers(Long userId) {
 		if (!users.containsKey(userId)){
-			var user = new User(userId, correcter);
+			var user = new User(userId, new TypoCorrecter(new SynonymStrategy()));
 			user.addListener(GeneratorBot.getBot(jokeDownloader));
 			users.put(userId, user);
 		}

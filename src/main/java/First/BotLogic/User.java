@@ -36,7 +36,11 @@ public class User {
 		this.correcter = correcter;
 		this.id = id;
 	}
-	
+
+	public TypoCorrecter getCorrecter() {
+		return correcter;
+	}
+
 	public List<String> getReceivedFromBotMessages() {
 		return receivedFromBotMessages;
 	}
@@ -55,7 +59,7 @@ public class User {
 		receivedFromBotMessages.clear();
 		var listenersCount = listeners.size();
 		for (var numberOfListener = 0; numberOfListener < listenersCount; numberOfListener++) {
-			var messageFromBot = listeners.get(numberOfListener).onMessage(message, this, correcter);
+			var messageFromBot = listeners.get(numberOfListener).onMessage(message, this);
 			if (messageFromBot != null) {
 				receivedFromBotMessages.add(messageFromBot);
 			}

@@ -23,9 +23,9 @@ public class Bot implements MessageListener {
 		return "Привет, пользователь!\n" + help;
 	}
 
-	public String onMessage(String message, User currentUser, TypoCorrecter correcter) {
+	public String onMessage(String message, User currentUser) {
 		var lowerMessage = message.toLowerCase();
-		var correctedMessage = correcter.CorrectTypo(lowerMessage, commands);
+		var correctedMessage = currentUser.getCorrecter().execute(lowerMessage, commands);
 		if (currentUser.getIsPlaying() || !menu.commandAvailable(correctedMessage)){
 			return null;
 		}

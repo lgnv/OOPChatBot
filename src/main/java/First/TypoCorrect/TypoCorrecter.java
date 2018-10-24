@@ -3,18 +3,25 @@ package First.TypoCorrect;
 import java.util.Set;
 
 public class TypoCorrecter {
-    private Metric metric;
+    private CorrectStrategy strategy;
+    private int typoCount;
 
-    public TypoCorrecter(Metric metric) {
-        this.metric = metric;
+    public TypoCorrecter(CorrectStrategy strategy) {
+        this.strategy = strategy;
     }
 
-    public String CorrectTypo(String word, Set<String> commands) {
-        for (var command : commands) {
-            if (metric.getDistance(word, command, -1) <= 2) {
-                return command;
-            }
+    public void setStrategy(CorrectStrategy newStrategy) {
+        strategy = newStrategy;
+    }
+
+    public String execute(String word, Set<String> commands) {
+        var result = strategy.correctTypo(word, commands);
+        if (result.equals(word) && !commands.contains(word)) {
+            typoCount++;
         }
-        return word;
+        if (typoCount > 5 && !(strategy instanceof GameStrategy)) {
+            setStrategy(new DamerauLevensteinStrategy(255));
+        }
+        return result;
     }
 }

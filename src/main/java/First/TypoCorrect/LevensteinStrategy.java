@@ -1,15 +1,17 @@
 package First.TypoCorrect;
 
-public class LevensteinMetric implements Metric {
+import java.util.Set;
+
+public class LevensteinStrategy implements CorrectStrategy{
     private int[] currentRow;
     private int[] previousRow;
 
-    public LevensteinMetric(int maxLength) {
+    public LevensteinStrategy(int maxLength) {
         previousRow = new int[maxLength + 1];
         currentRow = new int[maxLength + 1];
     }
 
-    public int getDistance(CharSequence first, CharSequence second, int max) {
+    private int getDistance(CharSequence first, CharSequence second, int max) {
         int firstLength = first.length();
         int secondLength = second.length();
 
@@ -61,5 +63,14 @@ public class LevensteinMetric implements Metric {
             currentRow = tempRow;
         }
         return previousRow[firstLength];
+    }
+
+    public String correctTypo(String word, Set<String> commands) {
+        for (var command : commands) {
+            if (getDistance(word, command, -1) <= Math.min(word.length(), 2)) {
+                return command;
+            }
+        }
+        return word;
     }
 }

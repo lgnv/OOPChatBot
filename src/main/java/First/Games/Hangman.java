@@ -2,8 +2,7 @@ package First.Games;
 
 import First.BotLogic.MessageListener;
 import First.BotLogic.User;
-import First.TypoCorrect.TypoCorrecter;
-import org.apache.shiro.crypto.hash.Hash;
+import First.TypoCorrect.LevensteinStrategy;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -132,6 +131,7 @@ public class Hangman implements MessageListener, Game {
 	private String finishGame(User user){
 		user.changeIsPlaying();
 		user.removeListener(this);
+		user.getCorrecter().setStrategy(new LevensteinStrategy(255));
 		return "Хорошо. Спасибо за игру!";
 	}
 	
@@ -140,10 +140,10 @@ public class Hangman implements MessageListener, Game {
 		return words.get(index);
 	}
 
-	public String onMessage(String message, User currentUser, TypoCorrecter correcter) {
+	public String onMessage(String message, User currentUser) {
 		var firstSymbol = message.length() > 0 ? message.toLowerCase().charAt(0) : ' ';
 		var lowerMessage = message.toLowerCase();
-		var correctedMessage = correcter.CorrectTypo(lowerMessage, commands);
+		var correctedMessage = currentUser.getCorrecter().execute(lowerMessage, commands);
 		if (correctedMessage.equals("выйти")){
 			return finishGame(currentUser);
 		}

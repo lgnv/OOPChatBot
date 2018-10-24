@@ -60,7 +60,7 @@ public class TelegramBot extends TelegramLongPollingBot {
 	private void setStandardReplyKeyboard(SendMessage sendMessage) {
 		ReplyKeyboardMarkup replyKeyboardMarkup = getReplyKeyboardMarkup(sendMessage);
 		var keyboard = new ArrayList<KeyboardRow>();
-		var keyboardFirstRow = getKeyboardRow(Arrays.asList("кек", "игры"));
+		var keyboardFirstRow = getKeyboardRow(Arrays.asList("анекдот", "игра"));
 		var keyboardSecondRow = getKeyboardRow(Arrays.asList("помощь"));
 		keyboard.add(keyboardFirstRow);
 		keyboard.add(keyboardSecondRow);

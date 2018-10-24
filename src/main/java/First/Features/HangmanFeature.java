@@ -2,6 +2,7 @@ package First.Features;
 
 import First.Games.Hangman;
 import First.BotLogic.User;
+import First.TypoCorrect.GameStrategy;
 
 public class HangmanFeature implements Feature {
     private Hangman hangman;
@@ -22,6 +23,7 @@ public class HangmanFeature implements Feature {
         hangman.restartGame();
         user.changeIsPlaying();
         user.addListener(hangman);
+        user.getCorrecter().setStrategy(new GameStrategy());
         return hangman.start();
     }
 }

@@ -3,7 +3,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import First.Jokes.JokeFilter;
 import First.Jokes.JokeFromFile;
 import First.BotLogic.User;
-import First.TypoCorrect.LevensteinMetric;
+import First.TypoCorrect.LevensteinStrategy;
 import First.TypoCorrect.TypoCorrecter;
 import org.junit.jupiter.api.Test;
 
@@ -34,7 +34,7 @@ class JokeFilterTests {
     }
 
     private String getLastJoke(int count) {
-        var user = new User(0,  new TypoCorrecter(new LevensteinMetric(255)));
+        var user = new User(0,  new TypoCorrecter(new LevensteinStrategy(255)));
         var jokeDownloader = new JokeFromFile("top100.txt");
         var jokeFilter = new JokeFilter(jokeDownloader);
         IntStream.range(0, count - 1).forEach(i -> jokeFilter.getJoke(user));
