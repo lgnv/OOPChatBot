@@ -7,6 +7,12 @@ public class DamerauLevensteinStrategy implements CorrectStrategy {
     private int[] previousRow;
     private int[] transpositionRow;
 
+    public DamerauLevensteinStrategy(){
+        currentRow = new int[256];
+        previousRow = new int[256];
+        transpositionRow = new int[256];
+    }
+
     public DamerauLevensteinStrategy(int maxLength) {
         currentRow = new int[maxLength + 1];
         previousRow = new int[maxLength + 1];
