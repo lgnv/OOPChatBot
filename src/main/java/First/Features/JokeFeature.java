@@ -1,4 +1,8 @@
-package First;
+package First.Features;
+
+import First.Features.Feature;
+import First.BotLogic.User;
+import First.Jokes.JokeFilter;
 
 public class JokeFeature implements Feature {
     private JokeFilter jokeFilter;
@@ -8,7 +12,7 @@ public class JokeFeature implements Feature {
     }
 
     public String getCommand(){
-        return "кек";
+        return "анекдот";
     }
 
     public String getDescription(){

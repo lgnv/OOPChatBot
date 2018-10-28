@@ -1,6 +1,6 @@
 import static org.junit.jupiter.api.Assertions.*;
-import First.JokeFromSite;
-import First.JokeFromFile;
+import First.Jokes.JokeFromSite;
+import First.Jokes.JokeFromFile;
 import org.junit.jupiter.api.Test;
 
 class JokeDownloaderTests {

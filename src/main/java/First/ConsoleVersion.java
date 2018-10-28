@@ -1,10 +1,18 @@
 package First;
 
+import First.BotLogic.Bot;
+import First.BotLogic.GeneratorBot;
+import First.BotLogic.User;
+import First.Jokes.JokeFromFile;
+import First.TypoCorrect.LevensteinStrategy;
+import First.TypoCorrect.SynonymStrategy;
+import First.TypoCorrect.TypoCorrecter;
+
 import java.util.Scanner;
 
 public class ConsoleVersion {
 	private static Scanner scanner = new Scanner(System.in);
-	private static User currentUser = new User(0);
+	private static User currentUser = new User(0, new TypoCorrecter(new SynonymStrategy()));
 	
 	public static void main(String[] args) {
 		var bot = GeneratorBot.getBot(new JokeFromFile("top100.txt"));

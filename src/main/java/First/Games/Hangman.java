@@ -1,15 +1,22 @@
-package First;
+package First.Games;
+
+import First.BotLogic.MessageListener;
+import First.BotLogic.User;
+import First.TypoCorrect.LevensteinStrategy;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Random;
 
 public class Hangman implements MessageListener, Game {
 	private final String rules = "Правила игры \"Виселица\":\n Я загадал для тебя слово. У тебя будет 6 попыток "
 			+ "отгадать его. Да прибудет с тобой эрудиция. Игра началась.\n В любой момент ты можешь выйти из игры по команде \"выйти\"";
 	private String word;
+	private HashSet<String> commands = new HashSet<String>();
 	private final String offerToPlayAgain = "Хочешь сыграть снова? Да\\Нет?";
 	private ArrayList<Integer> positionsOfGuessed = new ArrayList<>();
 	private ArrayList<Character> usedLetters = new ArrayList<>();
@@ -19,6 +26,7 @@ public class Hangman implements MessageListener, Game {
 	
 	public Hangman() {
 		words = getWordsFromFile("words.txt");
+		commands.addAll(Arrays.asList("выйти", "правила", "да", "нет"));
 		word = getRandomWord();
 	}
 	
@@ -123,6 +131,7 @@ public class Hangman implements MessageListener, Game {
 	private String finishGame(User user){
 		user.changeIsPlaying();
 		user.removeListener(this);
+		user.getCorrecter().setStrategy(new LevensteinStrategy(255));
 		return "Хорошо. Спасибо за игру!";
 	}
 	
@@ -133,22 +142,24 @@ public class Hangman implements MessageListener, Game {
 
 	public String onMessage(String message, User currentUser) {
 		var firstSymbol = message.length() > 0 ? message.toLowerCase().charAt(0) : ' ';
-		if (message.equalsIgnoreCase("выйти")){
+		var lowerMessage = message.toLowerCase();
+		var correctedMessage = currentUser.getCorrecter().execute(lowerMessage, commands);
+		if (correctedMessage.equals("выйти")){
 			return finishGame(currentUser);
 		}
-		if (message.equalsIgnoreCase("правила")) {
+		if (correctedMessage.equals("правила")) {
 			return rules;
 		}
 		if (getGameIsOver()) {
-			if (message.equalsIgnoreCase("да")) {
+			if (correctedMessage.equals("да")) {
 				return restartGame();
 			}
-			if (message.equalsIgnoreCase("нет")) {
+			if (correctedMessage.equals("нет")) {
 				return finishGame(currentUser);
 			}
 			return "Извини, не понял тебя. Напиши да\\нет";
 		}
-		if (message.length() != 1 || !Character.isLetter(firstSymbol)) {
+		if (correctedMessage.length() != 1 || !Character.isLetter(firstSymbol)) {
 			return "Упс, нужно ввести всего лишь одну букву!";
 		}
 		return acceptTheOption(firstSymbol);

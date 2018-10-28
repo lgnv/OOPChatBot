@@ -1,4 +1,4 @@
-package First;
+package First.BotLogic;
 
 import java.util.Date;
 

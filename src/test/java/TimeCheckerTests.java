@@ -1,6 +1,6 @@
 import static org.junit.jupiter.api.Assertions.*;
 
-import First.*;
+import First.BotLogic.TimeChecker;
 import org.junit.jupiter.api.Test;
 import java.lang.reflect.InvocationTargetException;
 

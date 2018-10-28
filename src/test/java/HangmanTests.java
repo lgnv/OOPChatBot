@@ -1,18 +1,19 @@
 import static org.junit.jupiter.api.Assertions.*;
 
+import First.TypoCorrect.LevensteinStrategy;
+import First.TypoCorrect.TypoCorrecter;
 import org.junit.jupiter.api.Test;
 
-import First.Hangman;
-import First.User;
-
-import java.util.ArrayList;
+import First.Games.Hangman;
+import First.BotLogic.User;
 
 class HangmanTests {
-	
+    private TypoCorrecter correcter = new TypoCorrecter(new LevensteinStrategy(255));
+
 	@Test
 	void testLetterInWord() {
 		var hangman = getHangman();
-		var user = new User(0);
+		var user = new User(0, correcter);
 		hangman.onMessage("л", user);
 		assertEquals(hangman.getHP(), 6);
 		assertEquals(hangman.getPositionsOfGuessed().size(), 1);
@@ -24,8 +25,9 @@ class HangmanTests {
 	@Test
 	void testLetterNotInWord() {
 		var hangman = getHangman();
-		var user = new User(0);
+		var user = new User(0, correcter);
 		hangman.onMessage("а", user);
+		//здесь почему то hp остается 6
 		assertEquals(hangman.getHP(), 5);
 		assertEquals(hangman.getPositionsOfGuessed().size(), 0);
 		assertEquals(hangman.getUsedLetters().size(), 1);
@@ -47,7 +49,7 @@ class HangmanTests {
 	@Test
 	void testLetterWasUsedBefore() {
 		var hangman = getHangman();
-		var user = new User(0);
+		var user = new User(0, correcter);
 		hangman.onMessage("а", user);
 		assertEquals(hangman.getHP(), 5);
 		assertEquals(hangman.getPositionsOfGuessed().size(), 0);
@@ -60,7 +62,7 @@ class HangmanTests {
 	@Test
 	void testGameOver() {
 		var hangman = getHangman();
-		var user = new User(0);
+		var user = new User(0, correcter);
 		hangman.onMessage("а", user);
 		hangman.onMessage("q", user);
 		hangman.onMessage("t", user);
@@ -73,7 +75,7 @@ class HangmanTests {
 	@Test
 	void testRestartGame() {
 		var hangman = getHangman();
-		var user = new User(0);
+		var user = new User(0, correcter);
 		hangman.onMessage("о", user);
 		assertEquals(hangman.getPositionsOfGuessed().size(), 2);
 		assertEquals(hangman.getUsedLetters().size(), 1);
@@ -104,7 +106,7 @@ class HangmanTests {
 	@Test
 	void testGetGameStatus(){
 		var h = getHangman();
-		var user = new User(0);
+		var user = new User(0, correcter);
 		var result = h.onMessage("f", user);
 		assertTrue(result.contains("Осталось попыток: 5"));
 		assertTrue(result.contains("Слово: _ _ _ _ _"));
@@ -114,7 +116,7 @@ class HangmanTests {
 	@Test
 	void testWin(){
 		var h = getHangman();
-		var user = new User(0);
+		var user = new User(0, correcter);
 		h.onMessage("с", user);
 		h.onMessage("л", user);
 		h.onMessage("о", user);
