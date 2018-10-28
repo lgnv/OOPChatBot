@@ -2,14 +2,12 @@ package First.BotLogic;
 
 
 import First.Features.Menu;
-import First.TypoCorrect.TypoCorrecter;
-
 import java.util.Arrays;
 import java.util.HashSet;
 
 public class Bot implements MessageListener {
-	private static final String help = "Я развлекательный бот. Чтобы получить список игр, в которые я умею играть, напиши \"игры\".\n"
-			+ "Для начала игры напиши её название.\n Чтобы получить свежую шутку напиши \"кек\"";
+	private static final String help = "Я развлекательный бот. Чтобы получить список игр, в которые я умею играть, напиши \"игра\".\n"
+			+ "Для начала игры напиши её название.\n Чтобы получить свежую шутку напиши \"анекдот\"";
 	private Menu menu;
 	private HashSet<String> commands;
 	

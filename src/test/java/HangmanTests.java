@@ -1,6 +1,6 @@
 import static org.junit.jupiter.api.Assertions.*;
 
-import First.TypoCorrect.LevensteinStrategy;
+import First.TypoCorrect.GameStrategy;
 import First.TypoCorrect.TypoCorrecter;
 import org.junit.jupiter.api.Test;
 
@@ -8,7 +8,7 @@ import First.Games.Hangman;
 import First.BotLogic.User;
 
 class HangmanTests {
-    private TypoCorrecter correcter = new TypoCorrecter(new LevensteinStrategy(255));
+    private TypoCorrecter correcter = new TypoCorrecter(new GameStrategy());
 
 	@Test
 	void testLetterInWord() {
@@ -37,7 +37,8 @@ class HangmanTests {
 	@Test
 	void testLetterInWordTwice() {
 		var hangman = getHangman();
-		hangman.onMessage("о", null);
+		var user = new User(0, correcter);
+		hangman.onMessage("о", user);
 		assertEquals(hangman.getHP(), 6);
 		assertEquals(hangman.getPositionsOfGuessed().size(), 2);
 		assertEquals((int)hangman.getPositionsOfGuessed().get(0), 2);

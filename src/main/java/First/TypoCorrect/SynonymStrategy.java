@@ -31,12 +31,9 @@ public class SynonymStrategy implements CorrectStrategy {
     }
 
     public String correctTypo(String word, Set<String> commands) {
-        /*var synonyms = getSynonyms(word);
-        for (var command : commands) {
-            if (synonyms.contains(command)) {
-                return command;
-            }
-        }*/
+        if (commands.contains(word)){
+            return word;
+        }
         for (var command : commands) {
             var synonyms = getSynonyms(command);
             if (synonyms.contains(word)) {

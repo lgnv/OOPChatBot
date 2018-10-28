@@ -2,14 +2,13 @@ package First.BotLogic;
 
 import First.Jokes.JokeDownloader;
 import First.Jokes.JokeFromSite;
-import First.TypoCorrect.LevensteinStrategy;
 import First.TypoCorrect.SynonymStrategy;
 import First.TypoCorrect.TypoCorrecter;
 
 import java.util.HashMap;
 
 public class UserManager {
-	private HashMap<Long, User> users = new HashMap<Long, User>();
+	private HashMap<Long, User> users = new HashMap<>();
 	private JokeDownloader jokeDownloader = new JokeFromSite("https://www.anekdot.ru/last/good/");
 
 	private void updateUsers(Long userId) {
