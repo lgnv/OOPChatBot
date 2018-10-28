@@ -1,7 +1,5 @@
 package First.Jokes;
 
-import First.Jokes.JokeDownloader;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;

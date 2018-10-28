@@ -1,6 +1,5 @@
 package First.Features;
 
-import First.Features.Feature;
 import First.BotLogic.User;
 import First.Jokes.JokeFilter;
 

@@ -13,17 +13,13 @@ public class RequestsManager {
         builder.append("lookup?key=dict.1.1.20181024T140651Z.8edd968a695a4c26.");
         builder.append("86dc72f73eeaf2cbfc3c898e7243b75156ece2b5&lang=ru-ru&text=");
         builder.append(word);
-        String url = builder.toString();
-
-        URL obj = new URL(url);
+        var url = builder.toString();
+        var obj = new URL(url);
         HttpURLConnection connection = (HttpURLConnection) obj.openConnection();
-
         connection.setRequestMethod("GET");
-
         BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
         String inputLine;
-        StringBuffer response = new StringBuffer();
-
+        var response = new StringBuffer();
         while ((inputLine = in.readLine()) != null) {
             response.append(inputLine);
         }
