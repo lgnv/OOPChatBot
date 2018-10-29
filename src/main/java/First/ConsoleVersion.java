@@ -4,7 +4,6 @@ import First.BotLogic.Bot;
 import First.BotLogic.GeneratorBot;
 import First.BotLogic.User;
 import First.Jokes.JokeFromFile;
-import First.TypoCorrect.LevensteinStrategy;
 import First.TypoCorrect.SynonymStrategy;
 import First.TypoCorrect.TypoCorrecter;
 

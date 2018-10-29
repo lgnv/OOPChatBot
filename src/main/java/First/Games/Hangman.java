@@ -2,7 +2,7 @@ package First.Games;
 
 import First.BotLogic.MessageListener;
 import First.BotLogic.User;
-import First.TypoCorrect.LevensteinStrategy;
+import First.TypoCorrect.DamerauLevensteinStrategy;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -131,7 +131,7 @@ public class Hangman implements MessageListener, Game {
 	private String finishGame(User user){
 		user.changeIsPlaying();
 		user.removeListener(this);
-		user.getCorrecter().setStrategy(new LevensteinStrategy(255));
+		user.getCorrecter().setStrategy(new DamerauLevensteinStrategy());
 		return "Хорошо. Спасибо за игру!";
 	}
 	

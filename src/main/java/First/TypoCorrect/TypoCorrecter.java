@@ -19,8 +19,8 @@ public class TypoCorrecter {
         if (result.equals(word) && !commands.contains(word)) {
             typoCount++;
         }
-        if (typoCount > 5 && !(strategy instanceof GameStrategy)) {
-            setStrategy(new DamerauLevensteinStrategy(255));
+        if (typoCount > 2 && !(strategy instanceof GameStrategy)) {
+            setStrategy(new SynonymStrategy());
         }
         return result;
     }

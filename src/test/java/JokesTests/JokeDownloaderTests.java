@@ -1,3 +1,5 @@
+package JokesTests;
+
 import static org.junit.jupiter.api.Assertions.*;
 import First.Jokes.JokeFromSite;
 import First.Jokes.JokeFromFile;

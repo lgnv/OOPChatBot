@@ -31,9 +31,9 @@ public class RequestsManager {
         String response = "";
         try {
             response = RequestsManager.sendRequest(word);
-        } catch (IOException e) {
-            return "";
         }
-        return response;
+        finally {
+            return response;
+        }
     }
 }

@@ -5,13 +5,13 @@ import First.BotLogic.GeneratorBot;
 import First.BotLogic.User;
 import First.Jokes.JokeDownloader;
 import First.Jokes.JokeFromFile;
-import First.TypoCorrect.LevensteinStrategy;
+import First.TypoCorrect.DamerauLevensteinStrategy;
 import First.TypoCorrect.TypoCorrecter;
 import org.junit.jupiter.api.Test;
 
 class UserTests {
 	private JokeDownloader jokeDownloader = new JokeFromFile("top100.txt");
-    private TypoCorrecter correcter = new TypoCorrecter(new LevensteinStrategy(255));
+    private TypoCorrecter correcter = new TypoCorrecter(new DamerauLevensteinStrategy());
 
 	private Bot getBot() {
 		return GeneratorBot.getBot(jokeDownloader);
