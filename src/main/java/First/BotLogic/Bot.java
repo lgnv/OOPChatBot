@@ -22,6 +22,7 @@ public class Bot implements MessageListener {
 	}
 
 	public String onMessage(String message, User currentUser) {
+		currentUser.getStrategyManager().checkStrategy(currentUser);
 		var lowerMessage = message.toLowerCase();
 		var correctedMessage = currentUser.getCorrecter().execute(lowerMessage, commands);
 		if (currentUser.getIsPlaying() || !menu.commandAvailable(correctedMessage)){

@@ -1,12 +1,14 @@
 package StrategyTests;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import First.TypoCorrect.YandexSynonymDownloader;
 import org.junit.jupiter.api.Test;
 import First.TypoCorrect.SynonymStrategy;
 import java.util.HashSet;
 
 public class SynonymTests {
-    private SynonymStrategy strategy = new SynonymStrategy();
+    private SynonymStrategy strategy = new SynonymStrategy(new YandexSynonymDownloader());
 
     @Test
     void testCorrectWord(){

@@ -10,6 +10,10 @@ public class TypoCorrecter {
         this.strategy = strategy;
     }
 
+    public int getTypoCount() { return typoCount; }
+
+    public CorrectStrategy getStrategy() { return strategy; }
+
     public void setStrategy(CorrectStrategy newStrategy) {
         strategy = newStrategy;
     }
@@ -18,9 +22,6 @@ public class TypoCorrecter {
         var result = strategy.correctTypo(word, commands);
         if (result.equals(word) && !commands.contains(word)) {
             typoCount++;
-        }
-        if (typoCount > 2 && !(strategy instanceof GameStrategy)) {
-            setStrategy(new SynonymStrategy());
         }
         return result;
     }

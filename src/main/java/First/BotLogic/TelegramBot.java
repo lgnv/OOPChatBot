@@ -1,5 +1,7 @@
 package First.BotLogic;
 
+import First.Jokes.JokeFromSite;
+import First.TypoCorrect.TypoCorrecterFactory;
 import com.vdurmont.emoji.EmojiParser;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendDocument;

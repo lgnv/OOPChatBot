@@ -3,6 +3,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import First.BotLogic.Bot;
 import First.BotLogic.GeneratorBot;
 import First.BotLogic.User;
+import First.BotLogic.UserManager;
 import First.Jokes.JokeDownloader;
 import First.Jokes.JokeFromFile;
 import First.TypoCorrect.TypoCorrecter;
@@ -20,14 +21,14 @@ class BotTests {
 	@Test
 	void testUndefinedCommand() {
 		var bot = getBot();
-		var result = bot.onMessage("some_message", new User(0, correcter));
+		var result = bot.onMessage("some_message", UserManager.getDefaultUser());
 		assertNull(result);
 	}
 	
 	 @Test
 	 void testGetGames() {
 		 var bot = getBot();
-		 var result = bot.onMessage("игры", new User(0, correcter));
+		 var result = bot.onMessage("игры", UserManager.getDefaultUser());
 		 assertTrue(result.contains("виселица"));
 	 }
 	 
@@ -40,7 +41,7 @@ class BotTests {
 	 @Test
 	 void testHelp() {
 		 var bot = getBot();
-		 var result = bot.onMessage("помощь", new User(0, correcter));
+		 var result = bot.onMessage("помощь", UserManager.getDefaultUser());
 		 assertTrue(result.contains("Получить"));
 	 }
 

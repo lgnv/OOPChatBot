@@ -1,17 +1,20 @@
 package First.TypoCorrect;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Properties;
 
 public class RequestsManager {
-    private static String sendRequest(String word) throws IOException {
+    private static String getUrl(String key) throws IOException {
+        Properties props = new Properties();
+        props.load(new FileInputStream(new File("src/main/config/keys.ini")));
+        return props.getProperty(key);
+    }
+
+    private static String sendRequest(String word, String key) throws IOException {
         var builder = new StringBuilder();
-        builder.append("https://dictionary.yandex.net/api/v1/dicservice.json/");
-        builder.append("lookup?key=dict.1.1.20181024T140651Z.8edd968a695a4c26.");
-        builder.append("86dc72f73eeaf2cbfc3c898e7243b75156ece2b5&lang=ru-ru&text=");
+        builder.append(getUrl(key));
         builder.append(word);
         var url = builder.toString();
         var obj = new URL(url);
@@ -27,10 +30,10 @@ public class RequestsManager {
         return response.toString();
     }
 
-    public static String getResponse(String word) {
+    public static String getResponse(String word, String key) {
         String response = "";
         try {
-            response = RequestsManager.sendRequest(word);
+            response = RequestsManager.sendRequest(word, key);
         }
         finally {
             return response;

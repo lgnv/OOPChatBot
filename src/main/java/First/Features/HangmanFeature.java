@@ -23,7 +23,6 @@ public class HangmanFeature implements Feature {
         hangman.restartGame();
         user.changeIsPlaying();
         user.addListener(hangman);
-        user.getCorrecter().setStrategy(new GameStrategy());
         return hangman.start();
     }
 }

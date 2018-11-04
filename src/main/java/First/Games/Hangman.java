@@ -131,7 +131,6 @@ public class Hangman implements MessageListener, Game {
 	private String finishGame(User user){
 		user.changeIsPlaying();
 		user.removeListener(this);
-		user.getCorrecter().setStrategy(new DamerauLevensteinStrategy());
 		return "Хорошо. Спасибо за игру!";
 	}
 	

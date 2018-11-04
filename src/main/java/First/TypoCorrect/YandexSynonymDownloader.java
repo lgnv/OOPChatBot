@@ -4,9 +4,9 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import java.util.HashSet;
 
-public class SynonymDownloader {
-    public static HashSet<String> getSynonyms(String word) {
-        var response = RequestsManager.getResponse(word);
+public class YandexSynonymDownloader implements ISynonymDownloader {
+    public HashSet<String> getSynonyms(String word) {
+        var response = RequestsManager.getResponse(word, "YANDEX_API_KEY");
         JSONArray trJson;
         var synonyms = new HashSet<String>();
         try {

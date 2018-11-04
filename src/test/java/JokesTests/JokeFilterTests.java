@@ -2,6 +2,7 @@ package JokesTests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import First.BotLogic.UserManager;
 import First.Jokes.JokeFilter;
 import First.Jokes.JokeFromFile;
 import First.BotLogic.User;
@@ -36,7 +37,7 @@ class JokeFilterTests {
     }
 
     private String getLastJoke(int count) {
-        var user = new User(0,  new TypoCorrecter(new DamerauLevensteinStrategy()));
+        var user = UserManager.getDefaultUser();
         var jokeDownloader = new JokeFromFile("top100.txt");
         var jokeFilter = new JokeFilter(jokeDownloader);
         IntStream.range(0, count - 1).forEach(i -> jokeFilter.getJoke(user));
