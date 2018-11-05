@@ -58,6 +58,7 @@ public class DamerauLevensteinStrategy implements CorrectStrategy {
         return previousRow[firstLength];
     }
 
+    @Override
     public String correctTypo(String word, Set<String> commands) {
         for (var command : commands) {
             if (getDistance(word, command, -1) <= Math.min(word.length(), 2)) {

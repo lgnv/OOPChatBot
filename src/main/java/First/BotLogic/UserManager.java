@@ -12,23 +12,11 @@ public class UserManager {
 	private TypoCorrecterFactory defaultCorrecterFactory;
 	private StrategyManager strategyManager;
 
-	public UserManager() {
-		this(new TypoCorrecterFactory(),
-				new JokeFromSite("https://www.anekdot.ru/last/good/"),
-				new StrategyManager());
-	}
-
 	public UserManager(TypoCorrecterFactory defaultCorrecterFactory, JokeDownloader jokeDownloader,
 					   StrategyManager strategyManager){
 		this.defaultCorrecterFactory = defaultCorrecterFactory;
 		this.jokeDownloader = jokeDownloader;
 		this.strategyManager = strategyManager;
-	}
-
-	public static User getDefaultUser() {
-		return new User(0,
-				new TypoCorrecter(new DamerauLevensteinStrategy()),
-				new StrategyManager());
 	}
 
 	private void updateUsers(Long userId) {

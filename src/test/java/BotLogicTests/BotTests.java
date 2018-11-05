@@ -1,9 +1,8 @@
+package BotLogicTests;
+
 import static org.junit.jupiter.api.Assertions.*;
 
-import First.BotLogic.Bot;
-import First.BotLogic.GeneratorBot;
-import First.BotLogic.User;
-import First.BotLogic.UserManager;
+import First.BotLogic.*;
 import First.Jokes.JokeDownloader;
 import First.Jokes.JokeFromFile;
 import First.TypoCorrect.TypoCorrecter;
@@ -21,14 +20,14 @@ class BotTests {
 	@Test
 	void testUndefinedCommand() {
 		var bot = getBot();
-		var result = bot.onMessage("some_message", UserManager.getDefaultUser());
+		var result = bot.onMessage("some_message", UserFactory.getDefaultUser());
 		assertNull(result);
 	}
 	
 	 @Test
 	 void testGetGames() {
 		 var bot = getBot();
-		 var result = bot.onMessage("игры", UserManager.getDefaultUser());
+		 var result = bot.onMessage("игры", UserFactory.getDefaultUser());
 		 assertTrue(result.contains("виселица"));
 	 }
 	 
@@ -41,7 +40,7 @@ class BotTests {
 	 @Test
 	 void testHelp() {
 		 var bot = getBot();
-		 var result = bot.onMessage("помощь", UserManager.getDefaultUser());
+		 var result = bot.onMessage("помощь", UserFactory.getDefaultUser());
 		 assertTrue(result.contains("Получить"));
 	 }
 

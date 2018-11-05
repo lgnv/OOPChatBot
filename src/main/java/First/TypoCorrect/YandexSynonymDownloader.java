@@ -5,6 +5,7 @@ import org.json.JSONObject;
 import java.util.HashSet;
 
 public class YandexSynonymDownloader implements ISynonymDownloader {
+    @Override
     public HashSet<String> getSynonyms(String word) {
         var response = RequestsManager.getResponse(word, "YANDEX_API_KEY");
         JSONArray trJson;

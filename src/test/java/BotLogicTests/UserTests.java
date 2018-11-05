@@ -1,9 +1,8 @@
+package BotLogicTests;
+
 import static org.junit.jupiter.api.Assertions.*;
 
-import First.BotLogic.Bot;
-import First.BotLogic.GeneratorBot;
-import First.BotLogic.User;
-import First.BotLogic.UserManager;
+import First.BotLogic.*;
 import First.Jokes.JokeDownloader;
 import First.Jokes.JokeFromFile;
 import First.TypoCorrect.DamerauLevensteinStrategy;
@@ -21,7 +20,7 @@ class UserTests {
 	@Test
 	void testSendMessage() {
 		var bot = getBot();
-		var user = UserManager.getDefaultUser();
+		var user = UserFactory.getDefaultUser();
 		user.addListener(bot);
 		user.sendMessage("игры");
 		assertTrue(user.getReceivedFromBotMessages().size() > 0);
@@ -30,7 +29,7 @@ class UserTests {
 	@Test
 	void testWithoutListeners() {
 		var bot = getBot();
-		var user = UserManager.getDefaultUser();
+		var user = UserFactory.getDefaultUser();
 		user.addListener(bot);
 		user.removeListener(bot);
 		user.sendMessage("message");

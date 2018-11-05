@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
 import java.util.ArrayList;
 
 public class TelegramBot extends TelegramLongPollingBot {
-	private UserManager userManager = new UserManager();
+	private UserManager userManager = UserFactory.getDefaultUserManager();
 	private String smile_cat_emoji = EmojiParser.parseToUnicode(":smile_cat:");
 	
 	@Override

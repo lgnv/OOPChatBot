@@ -9,6 +9,7 @@ public class SynonymStrategy implements CorrectStrategy {
         this.synonymDownloader = synonymDownloader;
     }
 
+    @Override
     public String correctTypo(String word, Set<String> commands) {
         if (commands.contains(word)){
             return word;
