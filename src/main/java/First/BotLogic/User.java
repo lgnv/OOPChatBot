@@ -1,6 +1,5 @@
 package First.BotLogic;
 
-import First.TypoCorrect.CorrectStrategy;
 import First.TypoCorrect.StrategyManager;
 import First.TypoCorrect.TypoCorrecter;
 

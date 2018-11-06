@@ -7,6 +7,7 @@ import First.Games.Hangman;
 import First.Jokes.JokeDownloader;
 import First.Features.JokeFeature;
 import First.Jokes.JokeFilter;
+import First.Jokes.JokeFromFile;
 
 import java.util.ArrayList;
 
@@ -21,5 +22,10 @@ public class GeneratorBot {
 		mainFeatures.add(gamesMenu);
 		var mainMenu = new Menu(mainFeatures);
 		return new Bot(mainMenu);
+	}
+
+	public static Bot getConsoleBot()
+	{
+		return getBot(new JokeFromFile("top100.txt"));
 	}
 }

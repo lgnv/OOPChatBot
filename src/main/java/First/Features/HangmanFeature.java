@@ -2,7 +2,6 @@ package First.Features;
 
 import First.Games.Hangman;
 import First.BotLogic.User;
-import First.TypoCorrect.GameStrategy;
 
 public class HangmanFeature implements Feature {
     private Hangman hangman;

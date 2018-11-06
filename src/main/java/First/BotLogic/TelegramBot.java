@@ -1,8 +1,6 @@
 package First.BotLogic;
 
-import First.Jokes.JokeFromSite;
-import First.TypoCorrect.TypoCorrecterFactory;
-import com.vdurmont.emoji.EmojiParser;
+import First.TypoCorrect.ConfigManager;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendDocument;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -17,8 +15,11 @@ import java.util.regex.Pattern;
 import java.util.ArrayList;
 
 public class TelegramBot extends TelegramLongPollingBot {
-	private UserManager userManager = UserFactory.getDefaultUserManager();
-	private String smile_cat_emoji = EmojiParser.parseToUnicode(":smile_cat:");
+	private UserManager userManager;
+
+	public TelegramBot(UserManager userManager) {
+		this.userManager = userManager;
+	}
 	
 	@Override
 	public String getBotUsername() {
@@ -33,19 +34,12 @@ public class TelegramBot extends TelegramLongPollingBot {
 		var currentUser = userManager.getUser(userId);
 		currentUser.sendMessage(textFromUser);
 		if (textFromUser.equalsIgnoreCase("cat")) {
-			var link = new StringBuilder("https://psv4.userapi.com/c834502/u140417658/");
-			link.append("docs/d13/cfae75c3f120/stereotipy.gif?extra=Ygx2aCfu_Up");
-			link.append("AUTB-45umcTNrU_OEicuPTQkUaKuNgJNRS-eFhY2ET4QPoKRMu2gKbP");
-			link.append("MuHXyhIaWj6k-9VYlFqozTsrEZViO01TJp6CgofXHPD1lC0bFQOZ6uit");
-			link.append("BgoTNMRhKC4pMOOlV-Yg");
-			sendGif(userId, link.toString());
+			var link = ConfigManager.getProperty("CAT_GIF_URL");
+			sendGif(userId, link);
 		}
 		else if (textFromUser.equalsIgnoreCase("кусь")) {
-			var link = new StringBuilder("https://psv4.userapi.com/c848024/u5057566/");
-			link.append("docs/d13/214f83b16c21/catism.gif?extra=JvM8DUxE1LtdaSP7hMcnE");
-			link.append("CEr90TKqb1BSB2yKmaHgXi3Ir365CV02PSeK4C1Nhcnb5U6OsNd5XS9gOnwaS");
-			link.append("PubVwYUuuMSqkBcTjJDluekqxS5oLnNRvneU2zPbOVN9GaxJKU11A8CT6oWXNbnwBSMVMS");
-			sendGif(userId, link.toString());
+			var link = ConfigManager.getProperty("UCUS_GIF_URL");
+			sendGif(userId, link);
 		}
 		else if (textFromUser.equalsIgnoreCase("/start")) {
 			try {
@@ -125,7 +119,6 @@ public class TelegramBot extends TelegramLongPollingBot {
 		gif.setChatId(userId);
 		var message = new SendMessage();
 		message.setChatId(userId);
-		message.setText(smile_cat_emoji);
 		try {
 			execute(gif);
 			execute(message);
@@ -136,6 +129,6 @@ public class TelegramBot extends TelegramLongPollingBot {
 
 	@Override
 	public String getBotToken() {
-		return "687342413:AAHQ_-8rh0ObFMlQSSsl13RQbHvkjNW1ju0";
+		return ConfigManager.getProperty("BOT_TOKEN");
 	}
 }

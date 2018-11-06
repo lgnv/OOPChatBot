@@ -1,33 +1,50 @@
 import First.BotLogic.GeneratorBot;
-import First.BotLogic.User;
 import First.BotLogic.UserFactory;
-import First.BotLogic.UserManager;
-import First.Jokes.JokeFromFile;
-import First.TypoCorrect.DamerauLevensteinStrategy;
-import First.TypoCorrect.GameStrategy;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class IntegrationTests {
+    private
+
     @Test
-    void testAllProgram() {
-        var bot = GeneratorBot.getBot(new JokeFromFile("top100.txt"));
+    void testFirstError() {
+        var bot = GeneratorBot.getConsoleBot();
         var currentUser = UserFactory.getDefaultUser();
         currentUser.addListener(bot);
-        assertTrue(currentUser.getCorrecter().getStrategy() instanceof DamerauLevensteinStrategy);
-        assertEquals(null, bot.onMessage("шутка", currentUser)); // первая ошибка
+        var result = bot.onMessage("шутка", currentUser);
+        assertNull(null, result); // первая ошибка
+    }
 
-        assertNotEquals(null, bot.onMessage("аникдот", currentUser));
+    @Test
+    void testFixedTypo() {
+        var bot = GeneratorBot.getConsoleBot();
+        var currentUser = UserFactory.getDefaultUser();
+        currentUser.addListener(bot);
+        var result = bot.onMessage("аникдот", currentUser);
+        assertTrue(result.contains("а"));
+    }
 
-        bot.onMessage("виселица", currentUser);
-        bot.onMessage("а", currentUser);
-        assertTrue(currentUser.getCorrecter().getStrategy() instanceof GameStrategy);
-        assertTrue(currentUser.getIsPlaying());
-        currentUser.sendMessage("выйти");
-        bot.onMessage("кек", currentUser); // вторая ошибка
-        assertFalse(currentUser.getCorrecter().getStrategy() instanceof GameStrategy);
-        assertFalse(currentUser.getIsPlaying());
-        assertEquals(null, bot.onMessage("шутка", currentUser)); // 3 ошибка -> стратегия изменилась на синонимы
-        assertNotEquals(null, bot.onMessage("шутка", currentUser)); // уже не ошибка
+    @Test
+    void testGameStrategy() {
+        var bot = GeneratorBot.getConsoleBot();
+        var currentUser = UserFactory.getDefaultUser();
+        currentUser.addListener(bot);
+        currentUser.sendMessage("виселица");
+        currentUser.sendMessage("a");
+        var receivedMessages = currentUser.getReceivedFromBotMessages();
+        assertNotEquals(0, receivedMessages.size());
+    }
+
+    @Test
+    void testChangeStrategy() {
+        var bot = GeneratorBot.getConsoleBot();
+        var currentUser = UserFactory.getDefaultUser();
+        currentUser.addListener(bot);
+        for (var i = 0; i < 3; i++) {
+            var result = bot.onMessage("забава", currentUser);
+            assertNull(null, result);
+        }
+        var result = bot.onMessage("забава", currentUser);
+        assertTrue(result.contains("а")); // уже не ошибка
     }
 }
