@@ -1,4 +1,4 @@
-package First.TypoCorrect;
+package First.utility;
 
 import java.io.*;
 import java.net.HttpURLConnection;

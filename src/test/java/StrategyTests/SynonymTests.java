@@ -2,9 +2,9 @@ package StrategyTests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import First.TypoCorrect.YandexSynonymDownloader;
+import First.TypoCorrect.Synonyms.YandexSynonymDownloader;
 import org.junit.jupiter.api.Test;
-import First.TypoCorrect.SynonymStrategy;
+import First.TypoCorrect.Synonyms.SynonymStrategy;
 import java.util.HashSet;
 
 public class SynonymTests {

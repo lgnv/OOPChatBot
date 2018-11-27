@@ -1,4 +1,4 @@
-package First.TypoCorrect;
+package First.utility;
 
 import java.io.File;
 import java.io.FileInputStream;

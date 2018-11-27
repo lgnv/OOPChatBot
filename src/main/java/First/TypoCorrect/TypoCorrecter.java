@@ -19,10 +19,15 @@ public class TypoCorrecter {
     }
 
     public String execute(String word, Set<String> commands) {
+        if (commands.contains(word)){
+            return word;
+        }
         var result = strategy.correctTypo(word, commands);
-        if (result.equals(word) && !commands.contains(word)) {
+        if (result.equals(word)) {
             typoCount++;
         }
         return result;
     }
 }
+
+

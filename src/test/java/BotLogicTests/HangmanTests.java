@@ -29,9 +29,8 @@ class HangmanTests {
 	@Test
 	void testLetterNotInWord() {
 		var hangman = getHangman();
-		var user = UserFactory.getDefaultUser();
+		var user = UserFactory.getPlayingUser();
 		hangman.onMessage("а", user);
-		//здесь почему то hp остается 6
 		assertEquals(hangman.getHP(), 5);
 		assertEquals(hangman.getPositionsOfGuessed().size(), 0);
 		assertEquals(hangman.getUsedLetters().size(), 1);
@@ -54,7 +53,7 @@ class HangmanTests {
 	@Test
 	void testLetterWasUsedBefore() {
 		var hangman = getHangman();
-		var user = UserFactory.getDefaultUser();
+		var user = UserFactory.getPlayingUser();
 		hangman.onMessage("а", user);
 		assertEquals(hangman.getHP(), 5);
 		assertEquals(hangman.getPositionsOfGuessed().size(), 0);
@@ -67,7 +66,7 @@ class HangmanTests {
 	@Test
 	void testGameOver() {
 		var hangman = getHangman();
-		var user = UserFactory.getDefaultUser();
+		var user = UserFactory.getPlayingUser();
 		hangman.onMessage("а", user);
 		hangman.onMessage("q", user);
 		hangman.onMessage("t", user);

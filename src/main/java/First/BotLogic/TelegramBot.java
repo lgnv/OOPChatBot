@@ -1,6 +1,6 @@
 package First.BotLogic;
 
-import First.TypoCorrect.ConfigManager;
+import First.utility.ConfigManager;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendDocument;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -56,10 +56,8 @@ public class TelegramBot extends TelegramLongPollingBot {
 	private void setStandardReplyKeyboard(SendMessage sendMessage) {
 		ReplyKeyboardMarkup replyKeyboardMarkup = getReplyKeyboardMarkup(sendMessage);
 		var keyboard = new ArrayList<KeyboardRow>();
-		var keyboardFirstRow = getKeyboardRow(Arrays.asList("анекдот", "игра"));
-		var keyboardSecondRow = getKeyboardRow(Arrays.asList("помощь"));
-		keyboard.add(keyboardFirstRow);
-		keyboard.add(keyboardSecondRow);
+		keyboard.add(getKeyboardRow(Arrays.asList("анекдот", "игра")));
+		keyboard.add(getKeyboardRow(Arrays.asList("помощь")));
 		replyKeyboardMarkup.setKeyboard(keyboard);
 	}
 
@@ -83,8 +81,7 @@ public class TelegramBot extends TelegramLongPollingBot {
 	private void setGameReplyKeyboard(SendMessage sendMessage) {
 		var replyKeyboardMarkup = getReplyKeyboardMarkup(sendMessage);
 		var keyboard = new ArrayList<KeyboardRow>();
-		var keyboardFirstRow = getKeyboardRow(Arrays.asList("правила", "выйти"));
-		keyboard.add(keyboardFirstRow);
+		keyboard.add(getKeyboardRow(Arrays.asList("правила", "выйти")));
 		replyKeyboardMarkup.setKeyboard(keyboard);
 	}
 

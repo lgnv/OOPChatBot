@@ -2,9 +2,6 @@ package First;
 
 import First.BotLogic.*;
 import First.Jokes.JokeFromFile;
-import First.TypoCorrect.SynonymStrategy;
-import First.TypoCorrect.TypoCorrecter;
-import First.TypoCorrect.YandexSynonymDownloader;
 
 import java.util.Scanner;
 

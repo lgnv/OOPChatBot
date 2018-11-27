@@ -1,4 +1,6 @@
-package First.TypoCorrect;
+package First.TypoCorrect.Synonyms;
+
+import First.TypoCorrect.CorrectStrategy;
 
 import java.util.Set;
 
@@ -11,9 +13,6 @@ public class SynonymStrategy implements CorrectStrategy {
 
     @Override
     public String correctTypo(String word, Set<String> commands) {
-        if (commands.contains(word)){
-            return word;
-        }
         for (var command : commands) {
             var synonyms = synonymDownloader.getSynonyms(command);
             if (synonyms.contains(word)) {
@@ -23,3 +22,4 @@ public class SynonymStrategy implements CorrectStrategy {
         return word;
     }
 }
+

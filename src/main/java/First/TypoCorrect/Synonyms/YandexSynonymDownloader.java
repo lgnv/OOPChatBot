@@ -1,5 +1,6 @@
-package First.TypoCorrect;
+package First.TypoCorrect.Synonyms;
 
+import First.utility.RequestsManager;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.util.HashSet;

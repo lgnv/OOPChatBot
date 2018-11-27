@@ -1,4 +1,4 @@
-package First.TypoCorrect;
+package First.TypoCorrect.Synonyms;
 
 import java.util.HashSet;
 

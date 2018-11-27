@@ -24,9 +24,13 @@ public class Bot implements MessageListener {
 		currentUser.getStrategyManager().checkStrategy(currentUser);
 		var lowerMessage = message.toLowerCase();
 		var correctedMessage = currentUser.getCorrecter().execute(lowerMessage, commands);
-		if (currentUser.getIsPlaying() || !menu.commandAvailable(correctedMessage)){
+		if (currentUser.getIsPlaying()){
 			return null;
 		}
 		return menu.useCommandFromMenu(correctedMessage, currentUser);
 	}
 }
+
+
+
+

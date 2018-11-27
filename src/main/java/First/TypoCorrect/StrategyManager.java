@@ -24,9 +24,11 @@ public class StrategyManager {
             previousStrategy = currentStrategy;
             correcter.setStrategy(gameStrategyFactory.create());
         }
-        if (!user.getIsPlaying() && previousStrategy != null)
+        else if (previousStrategy != null)
         {
             correcter.setStrategy(previousStrategy);
         }
     }
 }
+
+
