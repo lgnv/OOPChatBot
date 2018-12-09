@@ -1,3 +1,5 @@
+package JokesTests;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import First.BotLogic.TimeChecker;

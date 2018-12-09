@@ -1,3 +1,5 @@
+package StrategyTests;
+
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 import First.TypoCorrect.DamerauLevensteinStrategy;
@@ -29,6 +31,9 @@ public class DamerauLevensteinTests {
     void testIncorrectWord(){
         assertEquals("foobar", getResultDamerauLevenstein("foobar"));
     }
+
+    @Test
+    void testEmptyFirstWord() { assertEquals("", getResultDamerauLevenstein("")); }
 
     private String getResultDamerauLevenstein(String word){
         var commands = new HashSet<String>();

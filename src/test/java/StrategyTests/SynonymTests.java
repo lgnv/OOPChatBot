@@ -1,9 +1,15 @@
+package StrategyTests;
+
 import static org.junit.jupiter.api.Assertions.*;
+
+import First.TypoCorrect.Synonyms.YandexSynonymDownloader;
 import org.junit.jupiter.api.Test;
-import First.TypoCorrect.SynonymStrategy;
+import First.TypoCorrect.Synonyms.SynonymStrategy;
 import java.util.HashSet;
 
 public class SynonymTests {
+    private SynonymStrategy strategy = new SynonymStrategy(new YandexSynonymDownloader());
+
     @Test
     void testCorrectWord(){
         assertEquals("игра", getResultSynonym("игра"));
@@ -21,12 +27,18 @@ public class SynonymTests {
         assertEquals("хорошо", getResultSynonym("отлично"));
     }
 
+    @Test
+    void testCommandNotExistInVocabulary() {
+        var commands = new HashSet<String>();
+        commands.add("кек");
+        assertEquals("шутка", strategy.correctTypo("шутка", commands));
+    }
+
     private String getResultSynonym(String word){
         var commands = new HashSet<String>();
         commands.add("игра");
         commands.add("привет");
         commands.add("хорошо");
-        var dl = new SynonymStrategy();
-        return dl.correctTypo(word, commands);
+        return strategy.correctTypo(word, commands);
     }
 }

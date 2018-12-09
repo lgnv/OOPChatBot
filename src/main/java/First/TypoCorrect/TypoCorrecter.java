@@ -10,18 +10,24 @@ public class TypoCorrecter {
         this.strategy = strategy;
     }
 
+    public int getTypoCount() { return typoCount; }
+
+    public CorrectStrategy getStrategy() { return strategy; }
+
     public void setStrategy(CorrectStrategy newStrategy) {
         strategy = newStrategy;
     }
 
     public String execute(String word, Set<String> commands) {
-        var result = strategy.correctTypo(word, commands);
-        if (result.equals(word) && !commands.contains(word)) {
-            typoCount++;
+        if (commands.contains(word)){
+            return word;
         }
-        if (typoCount > 5 && !(strategy instanceof GameStrategy)) {
-            setStrategy(new DamerauLevensteinStrategy(255));
+        var result = strategy.correctTypo(word, commands);
+        if (result.equals(word)) {
+            typoCount++;
         }
         return result;
     }
 }
+
+

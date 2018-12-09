@@ -1,17 +1,17 @@
+package BotLogicTests;
+
 import static org.junit.jupiter.api.Assertions.*;
 
-import First.BotLogic.Bot;
-import First.BotLogic.GeneratorBot;
-import First.BotLogic.User;
+import First.BotLogic.*;
 import First.Jokes.JokeDownloader;
 import First.Jokes.JokeFromFile;
-import First.TypoCorrect.LevensteinStrategy;
+import First.TypoCorrect.DamerauLevensteinStrategy;
 import First.TypoCorrect.TypoCorrecter;
 import org.junit.jupiter.api.Test;
 
 class UserTests {
 	private JokeDownloader jokeDownloader = new JokeFromFile("top100.txt");
-    private TypoCorrecter correcter = new TypoCorrecter(new LevensteinStrategy(255));
+    private TypoCorrecter correcter = new TypoCorrecter(new DamerauLevensteinStrategy());
 
 	private Bot getBot() {
 		return GeneratorBot.getBot(jokeDownloader);
@@ -20,7 +20,7 @@ class UserTests {
 	@Test
 	void testSendMessage() {
 		var bot = getBot();
-		var user = new User(0, correcter);
+		var user = UserFactory.getDefaultUser();
 		user.addListener(bot);
 		user.sendMessage("игры");
 		assertTrue(user.getReceivedFromBotMessages().size() > 0);
@@ -29,7 +29,7 @@ class UserTests {
 	@Test
 	void testWithoutListeners() {
 		var bot = getBot();
-		var user = new User(0, correcter);
+		var user = UserFactory.getDefaultUser();
 		user.addListener(bot);
 		user.removeListener(bot);
 		user.sendMessage("message");

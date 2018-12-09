@@ -13,21 +13,12 @@ public class DamerauLevensteinStrategy implements CorrectStrategy {
         transpositionRow = new int[256];
     }
 
-    public DamerauLevensteinStrategy(int maxLength) {
-        currentRow = new int[maxLength + 1];
-        previousRow = new int[maxLength + 1];
-        transpositionRow = new int[maxLength + 1];
-    }
-
     private int getDistance(CharSequence first, CharSequence second, int max) {
         int firstLength = first.length();
         int secondLength = second.length();
 
         if (firstLength == 0) {
             return secondLength;
-        }
-        else if (secondLength == 0) {
-            return firstLength;
         }
         if (firstLength > secondLength) {
             CharSequence tmp = first;
@@ -36,17 +27,7 @@ public class DamerauLevensteinStrategy implements CorrectStrategy {
             firstLength = secondLength;
             secondLength = second.length();
         }
-        if (max < 0) {
-            max = secondLength;
-        }
-        if (secondLength - firstLength > max) {
-            return max + 1;
-        }
-        if (firstLength > currentRow.length) {
-            currentRow = new int[firstLength + 1];
-            previousRow = new int[firstLength + 1];
-            transpositionRow = new int[firstLength + 1];
-        }
+        max = secondLength;
         for (int i = 0; i <= firstLength; i++) {
             previousRow[i] = i;
         }
@@ -77,6 +58,7 @@ public class DamerauLevensteinStrategy implements CorrectStrategy {
         return previousRow[firstLength];
     }
 
+    @Override
     public String correctTypo(String word, Set<String> commands) {
         for (var command : commands) {
             if (getDistance(word, command, -1) <= Math.min(word.length(), 2)) {
